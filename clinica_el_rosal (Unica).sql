@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-12-2024 a las 02:31:36
+-- Tiempo de generación: 31-01-2025 a las 00:02:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,8 +18,113 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `clinica_el_rosal`
+-- Base de datos: `cosas por mejorar bd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `afiliacion`
+--
+
+CREATE TABLE `afiliacion` (
+  `id` int(11) NOT NULL,
+  `nombres` varchar(100) NOT NULL,
+  `apellidos` varchar(100) NOT NULL,
+  `tipo_identificacion` enum('TI','CC','PASAPORTE','EXTRANJERIA','REGISTRO CIVIL') NOT NULL,
+  `identificacion` varchar(20) NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `telefono` varchar(15) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `direccion` varchar(200) NOT NULL,
+  `id_municipio` int(11) NOT NULL,
+  `tipo_afiliacion` enum('CONTRIBUTIVO','SUBSIDIADO','PARTICULAR') NOT NULL,
+  `id_seguro` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `afiliacion`
+--
+
+INSERT INTO `afiliacion` (`id`, `nombres`, `apellidos`, `tipo_identificacion`, `identificacion`, `fecha_nacimiento`, `telefono`, `correo`, `direccion`, `id_municipio`, `tipo_afiliacion`, `id_seguro`) VALUES
+(1, 'brian', 'alfonso', 'TI', '1342352425', '2013-10-09', '34537353', 'brian@gmail.com', 'calle90#56', 107, 'SUBSIDIADO', 1),
+(2, 'fernanda', 'rodriguez', 'TI', '1107589326', '2014-06-13', '878352521', 'Fernanda125@gmail.com', 'calle67#56sur', 107, 'CONTRIBUTIVO', 2),
+(3, 'laura', 'garcia', 'CC', '878656534', '1998-10-16', '9896465433', 'laura@gmail.com', 'calle90#70', 9, 'PARTICULAR', 3),
+(4, 'valentina', 'orduz', 'TI', '5436353736', '2016-10-03', '787534222', 'valentina@gmail.com', 'calle67#80', 107, 'CONTRIBUTIVO', 4),
+(5, 'omar', 'montes', 'PASAPORTE', '563572623', '2016-10-18', '9837325242', 'omar@gmail.com', 'calle90#90', 9, 'PARTICULAR', 1),
+(6, 'Oscar', 'Jimenez', 'CC', '1102587423', '1995-12-20', '3104780415', 'Oscarjimenez@Hotmail.com', 'Calle28#7e-02', 150, 'SUBSIDIADO', 10),
+(7, 'Antonio', 'Sanchez', 'REGISTRO CIVIL', '1102987235', '2024-01-03', '3045987324', 'mamadeAntonio@gmail.com\r\n', 'Calle24#7e-05\r\n', 914, 'CONTRIBUTIVO', 3),
+(8, 'Xiomara', 'Sevilla', 'CC', '1103478963', '2000-04-01', '3247859214', 'Xiomi32427@gmail.com', 'Calle47#4e-2', 177, 'PARTICULAR', 7),
+(9, 'Cesar', 'Lopez', 'TI', '1104651329', '2008-07-21', '310269754', 'Cesar145@gmail.com', 'Calle26#4z-12\r\n', 24, 'SUBSIDIADO', 6),
+(10, 'Felipe', 'Gomez', 'TI', '1102395784', '2010-09-10', '3001782548', 'Felipe@Hotmail.com', 'Calle15#7s-14\r\n', 1097, 'SUBSIDIADO', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `agendamiento`
+--
+
+CREATE TABLE `agendamiento` (
+  `id` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `id_medico` int(11) NOT NULL,
+  `id_especialidad` int(11) NOT NULL,
+  `sede` varchar(100) NOT NULL,
+  `estado` enum('DISPONIBLE','OCUPADO','BLOQUEADO') NOT NULL,
+  `motivo` varchar(255) NOT NULL,
+  `id_usuario_creador` int(11) NOT NULL,
+  `tipo_creador` enum('AUXILIAR','PACIENTE') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `agendamiento`
+--
+
+INSERT INTO `agendamiento` (`id`, `fecha`, `hora`, `id_paciente`, `id_medico`, `id_especialidad`, `sede`, `estado`, `motivo`, `id_usuario_creador`, `tipo_creador`) VALUES
+(1, '2024-06-14', '10:00:00', 1, 1, 1, 'Sede Principal', 'DISPONIBLE', 'NULL', 1, 'PACIENTE'),
+(2, '2024-06-14', '17:00:00', 2, 1, 1, 'Sede Principal', 'OCUPADO', 'Capacitacion Medica', 21, 'AUXILIAR'),
+(3, '2024-09-10', '15:30:00', 3, 3, 8, 'Sede Principal', 'DISPONIBLE', 'NULL', 3, 'PACIENTE'),
+(4, '2024-11-08', '08:50:00', 4, 7, 7, 'Sede Principal', 'DISPONIBLE', 'NULL', 27, 'AUXILIAR'),
+(5, '2024-10-24', '11:10:00', 5, 5, 5, 'Sede Principal', 'DISPONIBLE', 'NULL', 24, 'AUXILIAR'),
+(6, '2024-10-29', '18:40:00', 6, 2, 2, 'Sede Principal', 'OCUPADO', 'Reunion Interna', 25, 'AUXILIAR'),
+(7, '2024-09-19', '08:00:00', 7, 1, 1, 'Sede Principal', 'DISPONIBLE', 'NULL', 7, 'PACIENTE'),
+(8, '2024-12-23', '13:40:00', 8, 6, 6, 'Sede Principal', 'DISPONIBLE', 'NULL', 23, 'AUXILIAR'),
+(9, '2024-11-22', '13:00:00', 9, 8, 8, 'Sede Principal ', 'BLOQUEADO', 'Mantenimiento del consultorio', 28, 'AUXILIAR'),
+(10, '2024-10-16', '07:00:00', 10, 4, 4, 'Sede Principal', 'DISPONIBLE', 'NULL', 22, 'AUXILIAR');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `auxiliar`
+--
+
+CREATE TABLE `auxiliar` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `identificacion` varchar(20) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `direccion` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `auxiliar`
+--
+
+INSERT INTO `auxiliar` (`id`, `nombre`, `apellido`, `identificacion`, `telefono`, `correo`, `direccion`) VALUES
+(1, 'Juan', 'Pérez', '1234567890', '3001234567', 'juan.perez@hotmail.com', 'Calle 10 #23-45'),
+(2, 'María', 'Gómez', '9876543210', '3009876543', 'maria.gomez@gmail.com', 'Carrera 50 #12-78'),
+(3, 'Carlos', 'Ramírez', '1122334455', '3011122334', 'carlos.ramirez@gmail.com', 'Avenida 6 #45-67'),
+(4, 'Ana', 'López', '5566778899', '3025566778', 'ana.lopez@hotmail.com', 'Calle 15 #89-12'),
+(5, 'Pedro', 'Martínez', '6677889900', '3036677889', 'pedro.martinez@gmail.com', 'Carrera 3 #34-56'),
+(6, 'Laura', 'Rodríguez', '9988776655', '3049988776', 'laura.rodriguez@hotmail.com', 'Calle 7 #56-89'),
+(7, 'Luis', 'Fernández', '1231231231', '3051231231', 'luis.fernandez@gmail.com', 'Avenida 9 #78-12'),
+(8, 'Sofía', 'Torres', '2233445566', '3062233445', 'sofia.torres@hotmail.com', 'Calle 2 #22-34'),
+(9, 'Jorge', 'Díaz', '3344556677', '3073344556', 'jorge.diaz@gmail.com', 'Carrera 8 #45-23'),
+(10, 'Patricia', 'González', '4455667788', '3084455667', 'patricia.gonzalez@gmail.com', 'Calle 11 #67-45');
 
 -- --------------------------------------------------------
 
@@ -29,28 +134,29 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cita` (
   `id` int(11) NOT NULL,
-  `id_persona` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
-  `id_consultorio` int(11) NOT NULL,
-  `motivo_consulta` text NOT NULL,
-  `id_receta` int(11) NOT NULL
+  `fecha` date NOT NULL,
+  `Hora` time NOT NULL,
+  `Estado` enum('AGENDAR','REPROGRAMAR','CANCELAR') NOT NULL,
+  `id_especialidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cita`
 --
 
-INSERT INTO `cita` (`id`, `id_persona`, `id_medico`, `id_consultorio`, `motivo_consulta`, `id_receta`) VALUES
-(1, 1, 1, 1, 'lesion en el pie derecho', 1),
-(2, 2, 2, 2, 'cita medicina general', 2),
-(3, 6, 6, 6, 'muetra de sangre', 3),
-(4, 5, 9, 9, 'revision del ojo derecho', 4),
-(5, 7, 7, 7, 'extracción de cordales', 5),
-(6, 3, 10, 10, 'revision mensual', 6),
-(7, 4, 8, 1, 'revision mensual', 7),
-(8, 10, 5, 5, 'se le hacen los rayos x para descartar fracturas', 8),
-(9, 9, 3, 3, 'persona con sobre peso', 9),
-(10, 8, 4, 4, 'persona con lesion en el tobillo', 10);
+INSERT INTO `cita` (`id`, `id_paciente`, `id_medico`, `fecha`, `Hora`, `Estado`, `id_especialidad`) VALUES
+(1, 1, 1, '2024-06-14', '10:00:00', 'AGENDAR', 1),
+(2, 2, 1, '2024-06-14', '17:00:00', 'REPROGRAMAR', 1),
+(3, 3, 3, '2024-09-10', '15:30:00', 'AGENDAR', 8),
+(4, 4, 7, '2024-11-08', '08:50:00', 'AGENDAR', 7),
+(5, 5, 5, '2024-10-24', '11:10:00', 'AGENDAR', 5),
+(6, 6, 2, '2024-10-29', '18:40:00', 'REPROGRAMAR', 2),
+(7, 7, 1, '2024-09-19', '08:00:00', 'AGENDAR', 1),
+(8, 8, 6, '2024-12-23', '13:40:00', 'AGENDAR', 6),
+(9, 9, 8, '2024-11-22', '13:00:00', 'CANCELAR', 8),
+(10, 10, 4, '2024-10-16', '07:00:00', 'AGENDAR', 4);
 
 -- --------------------------------------------------------
 
@@ -73,16 +179,17 @@ CREATE TABLE `consultorio` (
 --
 
 INSERT INTO `consultorio` (`id`, `nombre`, `ubicacion`, `capacidad`, `telefono`, `especialidad`, `estado`) VALUES
-(1, 'pediatria', 'tercer piso', 10, '3125464546', 'pediatria', 'activo'),
-(2, 'consultorio 2', 'primer piso', 10, '3135678797', 'medicina general', 'activo'),
-(3, 'consultorio 3', 'primer piso', 10, '3144444444', 'nutriologia', 'activo'),
-(4, 'consultorio 4', 'primer piso', 20, '3125464546', 'fisioterapia', 'inactivo'),
-(5, 'rayos x', 'segundo piso', 5, '3135678797', 'radiologia', 'activo'),
-(6, 'muestra de sangre', 'segundo piso', 16, '2342342324', 'medicina preventiva', 'activo'),
-(7, 'odontologia', 'segundo piso', 10, '32123232', 'odontologia', 'activo'),
-(8, 'rayos x', 'segundo piso ', 10, '3144343565', 'rayosx', 'inactivo'),
-(9, 'consultorio 6', 'tercer piso', 10, '3135678797', 'oftalmología', 'activo'),
-(10, 'consultorio 7 ', 'tercer piso', 7, '3224545267', 'ginecología', 'inactivo');
+(1, 'Consultorio 9', 'tercer piso', 10, '3125464546', 'pediatria', 'activo'),
+(2, 'consultorio 1', 'primer piso', 10, '3135678797', 'medicina interna', 'activo'),
+(3, 'consultorio 3', 'primer piso', 10, '3144444444', 'Dietetica y nutricion', 'inactivo'),
+(4, 'consultorio 4', 'primer piso', 20, '3125464546', 'fisioterapia', 'activo'),
+(5, 'Consultorio 5', 'segundo piso', 5, '3135678797', 'Psicologia', 'activo'),
+(6, 'Consultorio 6', 'segundo piso', 16, '2342342324', 'Ortopedia y Traumatologia', 'activo'),
+(7, 'Consultorio 10', 'segundo piso', 10, '32123232', 'odontologia', 'activo'),
+(8, 'Consultorio 2', 'segundo piso ', 10, '3144343565', 'Medicina General', 'activo'),
+(9, 'consultorio 8', 'tercer piso', 10, '3135678797', 'oftalmología', 'activo'),
+(10, 'consultorio 7 ', 'tercer piso', 7, '3224545267', 'ginecología', 'activo'),
+(11, 'Consultorio 11', 'Primer piso', 50, '3104780395', 'Medicina General', 'activo');
 
 -- --------------------------------------------------------
 
@@ -142,28 +249,29 @@ INSERT INTO `departamento` (`id`, `nombre_departamento`) VALUES
 
 CREATE TABLE `detalle_examenes` (
   `id` int(11) NOT NULL,
-  `id_cita` int(11) NOT NULL,
-  `id_servicio` int(11) NOT NULL,
-  `nota_medica` text NOT NULL,
+  `id_tipo_examen` int(11) NOT NULL,
   `fecha_examen` date NOT NULL,
-  `resultados` text NOT NULL
+  `archivo_examen` varchar(255) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `id_auxiliar` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `detalle_examenes`
 --
 
-INSERT INTO `detalle_examenes` (`id`, `id_cita`, `id_servicio`, `nota_medica`, `fecha_examen`, `resultados`) VALUES
-(1, 2, 3, 'Examen de Oftalmología', '2024-10-30', 'En los exámenes se reflejaron que el paciente cuenta con Miopía avanzada sin mejora, pero el astigmatismo se ha mejorado de 1.5 a 0.5'),
-(2, 2, 2, 'Escaner de Rayos X para evitar cualquier problema de fracturas', '2024-10-30', 'En el examen no se muestra ningún tipo de fractura, pero si cuenta con múltiples golpes'),
-(3, 3, 6, 'Exámenes de Rutina : Hemograma,\r\n- Velocidad de sedimentación (VHS), Niveles de hierro, ferritina y transferrina, Proteína C reactiva (PCR), Glucosa, TSH, T3 total y T4 total, Colesterol total y fracciones,', '2024-10-29', 'Exámenes con normalidad sin anomalías graves, aunque tiene un poco alto el colesterol un poco alto  240 mg/dl.'),
-(4, 4, 3, 'Examen de ojo derecho', '2024-10-30', 'falta de humedad en el ojo derecho o mas bien llamado como resequedad'),
-(5, 5, 4, 'Examen para saber que posicion se encuentra cada Cordal', '2024-10-30', 'Segun el examen se encuentra en una posicion no muy favorable y se tendra que hacerse una cirugia para su extraccion'),
-(6, 6, 1, 'Examenes para observar de que viene los dolores de cabeza y mareos frecuentemente', '2024-05-10', 'Se encontro que sufre de migraña'),
-(7, 7, 1, 'Exámenes de sangre y orina, electrocardiograma y Ecocardiograma para hallar si tiene hipertensión ', '2024-08-04', 'Los examenes arrojaron que si es hipertenso ahora es necesario la medicacion mensual para controlarla'),
-(8, 8, 2, 'Examen de Rayos X para descartar cualquier fractura ocasionada por el accidente', '2024-06-07', 'No se presentaron ninguna fractura '),
-(9, 9, 7, 'Exámenes de sangre y orina para saber cómo esta de salud ', '2024-02-21', 'se encuentra que el paciente tiene diabetes por culpa de su sobrepeso '),
-(10, 10, 10, 'Examen de radiografía para saber cómo se encuentra el tobillo', '2024-02-21', 'le salió en la radiografía que tiene Tendinitis del tibial anterior.');
+INSERT INTO `detalle_examenes` (`id`, `id_tipo_examen`, `fecha_examen`, `archivo_examen`, `id_paciente`, `id_auxiliar`, `created_at`) VALUES
+(1, 2, '2024-06-17', 'archivos/No-disponible.pdf', 1, 1, '2025-01-27 16:10:56'),
+(2, 11, '2024-06-26', 'archivos/No-disponible.pdf\r\n', 2, 2, '2025-01-27 16:28:45'),
+(3, 11, '2024-09-17', 'archivos/No-disponible.pdf\r\n', 3, 3, '2025-01-27 16:41:25'),
+(4, 4, '2024-11-15', 'archivos/No-disponible.pdf', 4, 4, '2025-01-27 16:51:38'),
+(5, 12, '2024-10-31', 'archivos/No-disponible.pdf\r\n', 5, 5, '2025-01-27 17:04:02'),
+(6, 6, '2024-10-31', 'archivos/No-disponible.pdf\r\n', 6, 6, '2025-01-27 17:18:18'),
+(7, 2, '2024-09-23', 'archivos/No-disponible.pdf\r\n', 7, 7, '2025-01-27 21:57:10'),
+(8, 5, '2024-12-27', 'archivos/No-disponible.pdf\r\n', 8, 8, '2025-01-27 22:18:36'),
+(9, 3, '2024-11-29', 'archivos/No-disponible.pdf\r\n', 9, 9, '2025-01-27 22:28:39'),
+(10, 10, '2024-10-23', 'archivos/No-disponible.pdf\r\n', 10, 10, '2025-01-27 22:41:28');
 
 -- --------------------------------------------------------
 
@@ -185,7 +293,7 @@ INSERT INTO `especialidad` (`id`, `nombre_especialidad`) VALUES
 (2, 'Medicina Interna'),
 (3, 'Dietetica y nutricion'),
 (4, 'Fisioterapeuta'),
-(5, 'Radiologo'),
+(5, 'Psicologia'),
 (6, 'Ortopedia y Traumatologia'),
 (7, 'Odontologia'),
 (8, 'Medicina General'),
@@ -195,91 +303,171 @@ INSERT INTO `especialidad` (`id`, `nombre_especialidad`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado_afiliacion`
+--
+
+CREATE TABLE `estado_afiliacion` (
+  `id` int(11) NOT NULL,
+  `id_afiliacion` int(11) NOT NULL,
+  `estado` enum('ACTIVO','INACTIVO','PENDIENTE') NOT NULL,
+  `fecha_activacion` date NOT NULL,
+  `fecha_certificado` date NOT NULL,
+  `observaciones` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_afiliacion`
+--
+
+INSERT INTO `estado_afiliacion` (`id`, `id_afiliacion`, `estado`, `fecha_activacion`, `fecha_certificado`, `observaciones`) VALUES
+(1, 1, 'ACTIVO', '2024-10-20', '2024-11-15', 'CERTIFICA QUE:\nEl (La) Señor(a) Brian Alfonso identificado(a) con TI 1342352425 se encuentra afiliado(a) a la CLÍNICA en condición de SUBSIDIADO.\n20/10/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 15 días del mes Noviembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nACTIVO\nA\nCLINICA EL ROSAL\n'),
+(2, 2, 'PENDIENTE', '2024-11-05', '2024-12-07', 'CERTIFICA QUE:\nEl (La) Señor(a) Fernanda Rodriguez identificado(a) con TI 1107589326 se encuentra afiliado(a) a la CLÍNICA en condición de CONTRIBUTIVO.\n05/11/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 07 días del mes Diciembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nPENDIENTE\nP\nCLINICA EL ROSAL\n'),
+(3, 3, 'INACTIVO', '2024-09-14', '2024-12-24', 'CERTIFICA QUE:\nEl (La) Señor(a) Laura Garcia identificado(a) con CC 878656534 se encuentra afiliado(a) a la CLÍNICA en condición de PARTICULAR.\n14/09/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 24 días del mes Diciembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nINACTIVO\nI\nCLINICA EL ROSAL\n'),
+(4, 4, 'ACTIVO', '2024-06-17', '2024-09-20', 'CERTIFICA QUE:\nEl (La) Señor(a) Valentina Orduz identificado(a) con TI 5436353736 se encuentra afiliado(a) a la CLÍNICA en condición de CONTRIBUTIVO.\n17/06/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 20 días del mes Septiembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nACTIVO\nA\nCLINICA EL ROSAL\n'),
+(5, 5, 'ACTIVO', '2024-04-20', '2024-07-13', 'CERTIFICA QUE:\nEl (La) Señor(a) Omar Montes identificado(a) con PASAPORTE 563572623 se encuentra afiliado(a) a la CLÍNICA en condición de PARTICULAR.\n20/04/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 13 días del mes Julio del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nACTIVO\nA\nCLINICA EL ROSAL\n'),
+(6, 6, 'INACTIVO', '2024-01-28', '2024-11-27', 'CERTIFICA QUE:\nEl (La) Señor(a) Oscar Jimenez identificado(a) con CC 1102587423 se encuentra afiliado(a) a la CLÍNICA en condición de SUBSIDIADO.\n28/01/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 27 días del mes Noviembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nINACTIVO\nI\nCLINICA EL ROSAL'),
+(7, 7, 'ACTIVO', '2024-06-25', '2024-12-28', 'CERTIFICA QUE:\nEl (La) Señor(a) Antonio Sanchez identificado(a) con REGISTRO CIVIL 1102987235 se encuentra afiliado(a) a la CLÍNICA en condición de CONTRIBUTIVO.\n25/06/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 28 días del mes Diciembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nACTIVO\nA\nCLINICA EL ROSAL'),
+(8, 8, 'PENDIENTE', '2024-02-28', '2024-09-19', 'CERTIFICA QUE:\nEl (La) Señor(a) Xiomara Sevilla identificado(a) con CC 1103478963 se encuentra afiliado(a) a la CLÍNICA en condición de PARTICULAR.\n28/02/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 19 días del mes Septiembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nPENDIENTE\nP\nCLINICA EL ROSAL\n'),
+(9, 9, 'ACTIVO', '2024-04-18', '2024-10-15', 'CERTIFICA QUE:\nEl (La) Señor(a) Cesar Lopez identificado(a) con TI 1104651329 se encuentra afiliado(a) a la CLÍNICA en condición de SUBSIDIADO.\n18/04/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 15 días del mes Octubre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nACTIVO\nA\nCLINICA EL ROSAL\n'),
+(10, 10, 'INACTIVO', '2024-03-30', '2024-12-14', 'CERTIFICA QUE:\r\nEl (La) Señor(a) Felipe Gomez identificado(a) con TI 1102395784 se encuentra afiliado(a) a la CLÍNICA en condición de SUBSIDIADO.\r\n30/03/2024\r\n\r\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 14 días del mes Diciembre del 2024.\r\n\r\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\r\n\r\nCordialmente,\r\nCLÍNICA EL ROSAL\r\n\r\nINACTIVO\r\nI\r\nCLINICA EL ROSAL');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `facturacion`
+--
+
+CREATE TABLE `facturacion` (
+  `id` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
+  `id_servicio` int(11) NOT NULL,
+  `monto` decimal(10,0) NOT NULL,
+  `fecha` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `facturacion`
+--
+
+INSERT INTO `facturacion` (`id`, `id_paciente`, `id_servicio`, `monto`, `fecha`) VALUES
+(1, 1, 12, 30000, '2024-06-17'),
+(2, 2, 21, 60000, '2024-06-26'),
+(3, 3, 8, 100000, '2024-09-10'),
+(4, 4, 14, 40000, '2024-11-15'),
+(5, 5, 5, 80000, '2024-10-24'),
+(6, 6, 16, 200000, '2024-10-31'),
+(7, 7, 12, 20000, '2024-09-23'),
+(8, 8, 6, 70000, '2024-12-23'),
+(9, 9, 13, 400000, '2024-11-29'),
+(10, 10, 20, 50000, '2024-10-23');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `farmaceutico`
+--
+
+CREATE TABLE `farmaceutico` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `numero_licencia` varchar(20) NOT NULL,
+  `telefono` varchar(15) NOT NULL,
+  `correo` varchar(100) NOT NULL,
+  `direccion` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `farmaceutico`
+--
+
+INSERT INTO `farmaceutico` (`id`, `nombre`, `apellido`, `numero_licencia`, `telefono`, `correo`, `direccion`) VALUES
+(1, 'José', 'Mendoza', 'L12345', '3001234567', 'jose.mendoza@gmail.com', 'Calle 10 #23-45'),
+(2, 'Ana', 'García', 'L67890', '3009876543', 'ana.garcia@gmail.com', 'Carrera 50 #12-78'),
+(3, 'Luis', 'Pérez', 'L11223', '3011122334', 'luis.perez@hotmail.com', 'Avenida 6 #45-67'),
+(4, 'María', 'Rodríguez', 'L44570', '3025566778', 'maria.rodriguez@gmail.com', 'Calle 15 #89-12'),
+(5, 'Carlos', 'Martínez', 'L88901', '3036677889', 'carlos.martinez@hotmail.com', 'Carrera 3 #34-56'),
+(6, 'Laura', 'Jiménez', 'L11234', '3041122334', 'laura.jimenez@hotmail.com', 'Avenida 7 #56-89'),
+(7, 'Pedro', 'López', 'L22345', '3052233445', 'pedro.lopez@gmail.com', 'Calle 9 #67-45'),
+(8, 'Bianca', 'Torres', 'L33456', '3063344556', 'Bianca.torres@hotmail.com', 'Calle 8 #45-23'),
+(9, 'Jorge', 'Díaz', 'L44567', '3074455667', 'jorge.diaz@gmail.com', 'Carrera 2 #22-34'),
+(10, 'Denis', 'Lopez', 'L55678', '3085566778', 'DenisL@hotmail.com', 'Calle 24 #04-99');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `historia`
 --
 
 CREATE TABLE `historia` (
   `id` int(11) NOT NULL,
-  `fecha_visita` date NOT NULL,
-  `id_persona` int(11) NOT NULL,
+  `id_paciente` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
+  `fecha_consulta` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `motivo_consulta` text NOT NULL,
+  `historial_clinico` text NOT NULL,
   `diagnostico` text NOT NULL,
-  `observaciones` text NOT NULL
+  `tratamiento` text NOT NULL,
+  `alergias` text NOT NULL,
+  `antecedentes` text NOT NULL,
+  `signos_vitales` text NOT NULL,
+  `examenes_solicitado` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `historia`
 --
 
-INSERT INTO `historia` (`id`, `fecha_visita`, `id_persona`, `id_medico`, `diagnostico`, `observaciones`) VALUES
-(1, '2024-10-30', 1, 1, 'esguince en el pie derecho', 'El paciente se presenta con una hinchazon, moreton y mucho dolor en el pie derecho que se diagnostico como un esguince del cual se le recetara unas medicinas y unas indicaciones para su pronta recuperacion'),
-(2, '2024-10-30', 2, 2, 'Cuadro de virosis con vomito y malestar General', 'Se presenta el paciente con un cuadro de virosis del cual se ve reflejado con mucha frecuencia el vomito y tiene mucho malestar general y ha tenido ese cuadro desde aproximadamente 8 dias '),
-(3, '2024-10-30', 6, 6, 'Muestra de Sangre', 'Se observo que en los examenes salieron todo bien dentro de los parametros normales'),
-(4, '2024-10-30', 5, 9, 'Resequedad del ojo derecho', 'Se le proporciono al paciente la revision del ojo y se pudo encontrar que tenia mucha resequedad en el ojo derecho sabiendo esto se le suministro unas recetas con el fin de poder ver mejora '),
-(5, '2024-10-30', 7, 7, 'Extraccion de Cordales', 'Se le extrajo con Exito cada una de las cordales y esperemos su buena recuperacion y nos volvemos a ver dentro de 15 dias para ver la evolucion que muestra'),
-(6, '2024-05-10', 3, 10, 'Dolor de cabeza y mareos Frecuentes', 'Paciente que cuenta con mucho dolor de cabeza y mareos frecuentes se les suministra medicamentos a espera de su mejora'),
-(7, '2024-08-04', 4, 8, 'Hipertenso', 'Asiste paciente con examenes del cual se diagnostica que es hipertenso y se le suministra sus medicamentos necesarios para controlarla '),
-(8, '2024-06-07', 10, 5, 'Los rayos X salieron bien sin presentar ningun tipo de fractura', 'rayos X salio bien evitando ninguna fractura y se le envia medicamentos e indicaciones para su pronta mejora '),
-(9, '2024-02-21', 9, 3, 'Sobre peso tipo 3', 'Se le envia al paciente a ejercitarse y una orden remitente a la nutricionista con el fin de poder evitar que pueda seguir subiendo '),
-(10, '2024-03-19', 8, 4, 'Tendinitis del tibial anterior.', 'Al paciente se le diagnóstico una tendinitis del tibial anterior puede deberse a una carga incorrecta o un mal acondicionamiento se le envia medicamentos para ver si mejora');
+INSERT INTO `historia` (`id`, `id_paciente`, `id_medico`, `fecha_consulta`, `motivo_consulta`, `historial_clinico`, `diagnostico`, `tratamiento`, `alergias`, `antecedentes`, `signos_vitales`, `examenes_solicitado`) VALUES
+(1, 1, 1, '2024-06-14 15:00:00', 'Fiebre persistente y tos durante los últimos 5 días.', 'N/A', 'Infección respiratoria aguda (IRA).', 'Se enviará medicación para la mejora del paciente y una observación y seguimiento en caso de empeoramiento', 'AINES', 'El Padre Sufre de Asma Y la Madre sana, sin antecedentes relevantes.', 'Frecuencia cardíaca: 100 lpm\r\nFrecuencia respiratoria: 24 rpm\r\nTemperatura: 38.5 °C\r\nPresión arterial: 90/60 mmHg', 'Se le Solicita un Hemograma con el fin de revisar como se encuentra el paciente'),
+(2, 2, 1, '2024-06-14 22:00:00', 'La paciente presenta episodios de dolor abdominal en la región periumbilical, que se han intensificado en las últimas semanas.', 'Sin antecedentes de enfermedades crónicas. Vacunas al día.', 'Síndrome de intestino irritable (posible)', 'Se hara envio de tratamiento medico y se le pide a la madre una reduccion de alimentos irritantes (grazas, azucares y alimentos picantes)\r\n\r\nY un control en 1 mes para evaluar la evolucion.', 'N/A', 'Personales: Sin antecedentes quirúrgicos. No alergias conocidas.\r\nFamiliares: Madre con gastritis, padre sano.', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se le enviara una Ecografía abdominal Para descartar anomalías estructurales.'),
+(3, 3, 3, '2024-09-10 20:30:00', 'La paciente se presenta a consulta por dolor abdominal persistente en la región inferior derecha, que ha aumentado en intensidad en los últimos tres días.', 'Antecedentes personales:\r\n\r\nEnfermedades crónicas: [Reflujo Gastrico]\r\nAlergias: [N/A]\r\nMedicamentos actuales: [Lansoprazol 30mg]\r\n\r\nAntecedentes familiares:\r\nEnfermedades relevantes en familiares: [Ninguna]', 'Posible apendicitis aguda (a confirmar con estudios).', 'Se le envía Reposo, muchas Hidratación y también se le dará Analgésicos para calmar el dolor mientras salen los resultados', 'N/A', 'Enfermedades crónicas: [Reflujo Gástrico]\r\n\r\nAntecedentes familiares:\r\nEnfermedades relevantes en familiares: [Ninguna]', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se le Enviara un examen para una Ecografía Abdominal con el fin de identificar como esta.'),
+(4, 4, 7, '2024-11-08 13:50:00', 'Paciente refiere dolor dental en el molar superior derecho, especialmente al masticar y al consumir alimentos fríos.', 'N/A', 'Se diagnostica Caries dental en el molar superior derecho.', 'Se realizará una radiografía periapical también una restauración de la caries con material compuesto.\r\n\r\nY unas instrucciones sobre higiene bucal y seguimiento.', 'ALERGICA A LOS ACAROS', 'Sin antecedentes médicos relevantes.', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se realizara una Radiografía periapical del molar afectado.'),
+(5, 5, 5, '2024-10-24 16:10:00', 'El paciente se presenta por síntomas de ansiedad y depresión, que han interferido con su vida diaria y relaciones interpersonales. Refirió sentirse abrumado por el estrés laboral y problemas familiares.', 'Sin antecedentes psiquiátricos significativos. No ha recibido tratamiento psicológico anteriormente.', 'Se le Diagnostico \r\nF41.1 -> (Trastorno de ansiedad generalizada)\r\nF32.0 -> (Episodio depresivo leve)', 'Se le Recomienda: \r\n* Terapia cognitivo-conductual (TCC) semanal.\r\n* Ejercicios de relajación y mindfulness.', 'N/A', 'Familiares: Madre con antecedentes de depresión.\r\nPersonales: Estrés laboral reciente, separación reciente de pareja.', 'Frecuencia cardíaca: 75 bpm\r\nPresión arterial: 120/80 mmHg\r\nTemperatura: 36.5 °C\r\nFrecuencia respiratoria: 16 rpm', 'Se le Solicita un examen de Evaluación psicológica completa.'),
+(6, 6, 2, '2025-01-27 17:21:07', 'Paciente masculino de 29 años presenta dolor torácico intermitente y dificultad para respirar.', 'Antecedentes Médicos:\r\n* Hipertensión arterial controlada con medicamentos todavía.\r\n\r\nAntecedentes Quirúrgicos:\r\n* Hernia Umbilical hace 10 años.\r\n\r\n', 'Posible angina de pecho debido a la presentación de dolor torácico y factores de riesgo cardiovascular.', 'Se le enviara tratamiento médico y también se le pide haga cambios en el estilo de vida (dieta y ejercicio) y \r\nControl regular de glucosa y presión arterial.', 'N/A', 'Antecedentes Quirúrgicos:\r\n* Hernia Umbilical hace 10 años.\r\n\r\nAntecedentes Médicos:\r\n* Hipertensión arterial con medicamentos todavia.\r\n', 'Presión Arterial: 130/85 mmHg\r\nFrecuencia Cardíaca: 78 lpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.8 °C\r\nSaturación de Oxígeno: 95%', 'Se le enviara un Electrocardiograma (ECG) para descartar cualquier otro problema'),
+(7, 7, 1, '2024-09-19 13:00:00', 'Consulta por fiebre persistente los padres reportan que el bebé ha tenido fiebre de hasta 39°C durante los últimos tres días, acompañado de irritabilidad y disminución del apetito.', 'Edad: 1 año\r\nPeso: 9 kg\r\nTalla: 70 cm\r\nDesarrollo: Desarrollo psicomotor adecuado para la edad.\r\nVacunas: Al día según el esquema nacional de vacunación.\r\nAlergias: No se reportan alergias conocidas.', 'Infección viral (posible infección respiratoria superior).', 'Se recomienda tenerlo bastante hidratado monitorear la fiebre y si llega a ser necesario baños tibios y por ende también se recetará unos medicamentos por si llega a ser necesario', 'N/A', 'Antecedentes familiares: Sin antecedentes relevantes de enfermedades hereditarias.\r\n\r\nAntecedentes personales: Nacido a término, sin complicaciones en el parto. Sin hospitalizaciones previas.', 'Frecuencia cardiaca: 120 latidos por minuto\r\nFrecuencia respiratoria: 30 respiraciones por minuto\r\nTemperatura: 38.5°C\r\n', 'Se le solicita un hemograma para evaluar algun signo de infeccion.'),
+(8, 8, 6, '2024-12-23 18:40:00', 'Dolor en la rodilla derecha que ha persistido durante las últimas 3 semanas, especialmente al caminar y subir escaleras.', 'N/A', 'Lesión de ligamento cruzado anterior (LCA) o meniscopatía.', 'Se recomienda reposo y también un antiinflamatorio que se le enviara para que se le alivie un poco el dolor ', 'RINITIS ALERGICA', 'Familiares: Padre con antecedentes de artritis.\r\n\r\nPersonales: Actividad física moderada, corre ocasionalmente.', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 72 latidos por minuto\r\nTemperatura: 36.8 °C\r\nFrecuencia Respiratoria: 16 respiraciones por minuto\r\n', 'Se le solicitara una Resonancia magnética (RM) de rodilla'),
+(9, 9, 8, '2024-11-22 18:00:00', 'Dolor de cabeza intenso que ha persistido por más de 2 días.', 'Antecedentes Médicos:\r\nSin antecedentes de migrañas o cefaleas previas.\r\nNo alergias conocidas.\r\nSin enfermedades crónicas relevantes.', 'Cefalea Tensional o Migraña (se requiere evaluación adicional para determinar el tipo).', 'se recomienda evitar desencadenantes como estrés, falta de sueño y ciertos alimentos además se le suministrara un medicamento que le podrá servir para aliviar un poco ese dolor de cabeza intenso', 'N/A', 'Personales:\r\nEstilo de vida de manera sedentaria, dieta irregular y Estrés laboral reciente.\r\n\r\nSociales:\r\nNo fumador, consumo ocasional de alcohol.', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 75 bpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.8 °C', 'se le envia una Tomografía computarizada (TC) para revisar y ver si todo esta bien '),
+(10, 10, 4, '2024-10-16 12:00:00', 'Paciente se presenta con dolor persistente en la articulación de la rodilla derecha, que ha aumentado en intensidad en las últimas semanas.', 'N/A', 'Sospecha de tendinitis en el tendón rotuliano derecho.', 'Se le enviara un tratamiento, pero antes que nada debe tener presente que debe tener \r\n1) un Reposo relativo de la extremidad afectada.\r\n\r\n2) Aplicación de hielo en la zona afectada.\r\n\r\n3) se le enviara una Prescripción de antiinflamatorios', 'N/A', 'Sin Antecedentes relevantes', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 72 bpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.5 °C', 'Se le solicita una Ecografía musculoesquelética de la rodilla derecha para poder dar un díctame.');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `horarios`
+-- Estructura de tabla para la tabla `inventario_medicamentos`
 --
 
-CREATE TABLE `horarios` (
-  `id` int(11) NOT NULL,
-  `dia` date NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL,
-  `id_medico` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `horarios`
---
-
-INSERT INTO `horarios` (`id`, `dia`, `hora_inicio`, `hora_fin`, `id_medico`) VALUES
-(1, '2024-12-30', '08:20:00', '09:25:00', 1),
-(2, '2024-09-16', '08:20:00', '09:25:00', 2),
-(3, '2024-08-09', '09:30:00', '10:25:00', 1),
-(4, '2024-04-24', '08:30:00', '09:30:00', 6),
-(5, '2024-05-01', '08:20:00', '09:25:00', 9),
-(6, '2024-04-20', '08:30:00', '09:30:00', 7),
-(7, '2024-01-08', '09:35:00', '10:25:00', 7),
-(8, '2024-03-25', '10:30:00', '11:30:00', 1),
-(9, '2024-04-06', '08:20:00', '09:25:00', 10),
-(10, '2024-06-30', '09:30:00', '10:30:00', 10);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `medicamentos`
---
-
-CREATE TABLE `medicamentos` (
+CREATE TABLE `inventario_medicamentos` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
-  `id_modo_uso` int(11) NOT NULL
+  `Cantidad` int(11) NOT NULL,
+  `descripción` text NOT NULL,
+  `categoria` varchar(100) NOT NULL,
+  `unidad_medida` varchar(20) NOT NULL,
+  `precio_unitario` decimal(10,0) NOT NULL,
+  `fecha_vencimiento` date DEFAULT NULL,
+  `proveedor` varchar(100) NOT NULL,
+  `fecha_actualizacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `estado` enum('DISPONIBLE','AGOTADO') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `medicamentos`
+-- Volcado de datos para la tabla `inventario_medicamentos`
 --
 
-INSERT INTO `medicamentos` (`id`, `nombre`, `id_modo_uso`) VALUES
-(1, 'paracetamol', 1),
-(2, 'acetaminofén', 2),
-(3, 'Liposomal Vitamin C', 3),
-(4, 'Systane Gel Drops Gotas Oftálmicas Lubricantes ', 4),
-(5, 'naproxeno', 5),
-(6, 'diclofenaco', 6),
-(7, 'Losartan y Metroporol', 7),
-(8, 'Actromadol y Naproxeno', 8),
-(9, 'Active Burner', 9),
-(10, 'Flanax', 10);
+INSERT INTO `inventario_medicamentos` (`id`, `nombre`, `Cantidad`, `descripción`, `categoria`, `unidad_medida`, `precio_unitario`, `fecha_vencimiento`, `proveedor`, `fecha_actualizacion`, `estado`) VALUES
+(1, 'Cetirizina 10mg', 100, 'Antihistamínico para alergias', 'Antihistamínicos', 'Tabletas', 5, '2026-05-20', 'Laboratorios XYZ', '2024-08-28 19:30:00', 'DISPONIBLE'),
+(2, 'Acetaminofén 500mg', 500, 'Analgésico y antipirético', 'Analgésicos', 'Tabletas', 4, '2028-12-15', 'Farmacéutica ABC', '2024-01-28 19:30:00', 'DISPONIBLE'),
+(3, 'Liposomal Vitamin C', 1000, 'Vitamina C liposomal de alta absorción', 'Suplementos', 'Cápsulas', 10, '2026-01-10', 'Laboratorios Naturales', '2025-01-28 19:30:00', 'AGOTADO'),
+(4, 'Systane Gel Drops Gotas Oftálmicas Lubricantes', 50, 'Lubricante ocular para ojos secos', 'Oftalmología', 'Gotas', 15, '2028-08-30', 'VisionCare Ltd.', '2025-01-28 19:45:04', 'DISPONIBLE'),
+(5, 'Naproxeno 250mg', 300, 'Antiinflamatorio no esteroideo', 'Antiinflamatorios', 'Tabletas', 4, '2026-11-01', 'PharmaCorp', '2025-01-28 19:45:33', 'DISPONIBLE'),
+(6, 'Diclofenaco 75mg', 400, 'Analgésico antiinflamatorio', 'Antiinflamatorios', 'Tabletas', 5, '2025-07-20', 'Farmacéutica ABC', '2025-01-28 19:37:14', 'AGOTADO'),
+(7, 'Losartán y Metoprolol 50mg', 800, 'Combinación para hipertensión arterial', 'Antihipertensivos', 'Tabletas', 7, '2030-10-10', 'CardioLab', '2025-01-28 19:45:51', 'DISPONIBLE'),
+(8, 'Ibuprofeno 400mg', 90, 'Antiinflamatorio y analgésico', 'Antiinflamatorios', 'Tabletas', 3, '2027-06-30', 'Laboratorios XYZ', '2025-01-28 19:30:00', 'DISPONIBLE'),
+(9, 'Active Burner', 14, 'Suplemento para el control de peso', 'Suplementos', 'Cápsulas', 20, '2025-09-15', 'NaturLife', '2025-01-28 19:37:26', 'AGOTADO'),
+(10, 'Clorfeniramina solución oral 2MG/5 ML', 600, 'Antihistamínico en solución oral', 'Antihistamínicos', 'Líquido', 3, '2026-08-01', 'Laboratorios XYZ', '2025-01-28 19:46:43', 'DISPONIBLE'),
+(11, 'Alprazolam (Xanax)', 200, 'Ansiolítico para trastornos de ansiedad', 'Ansiolíticos', 'Tabletas', 12, '2029-11-30', 'PharmaCorp', '2025-01-28 19:46:55', 'DISPONIBLE'),
+(12, 'Aspirina', 300, 'Analgésico y antipirético', 'Analgésicos', 'Tabletas', 2, '2026-01-15', 'Farmacéutica ABC', '2025-01-28 19:30:00', 'DISPONIBLE'),
+(13, 'Dolex Niño', 90, 'Suspensión pediátrica para fiebre y dolor', 'Antipiréticos', 'Líquido', 5, '2025-12-01', 'Laboratorios XYZ', '2025-01-28 19:30:00', 'DISPONIBLE');
 
 -- --------------------------------------------------------
 
@@ -295,51 +483,25 @@ CREATE TABLE `medico` (
   `licencia_medica` varchar(100) NOT NULL,
   `id_especialidad` int(11) NOT NULL,
   `correo` varchar(50) NOT NULL,
-  `direccion` varchar(60) NOT NULL
+  `direccion` varchar(60) NOT NULL,
+  `id_consultorio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `medico`
 --
 
-INSERT INTO `medico` (`id`, `nombre`, `apellidos`, `telefono`, `licencia_medica`, `id_especialidad`, `correo`, `direccion`) VALUES
-(1, 'brayan', 'parra', '111222333', '1153665363', 1, 'brayan@outlook.com', 'calle90#09'),
-(2, 'lina', 'lopez', '111111111', '1213121321', 2, 'lina123@gmail.com', 'calle 67#6575'),
-(3, 'mailin', 'serrano', '3145656451', '1902102910', 8, 'mailin123@gmail.com', 'calle65#676'),
-(4, 'alejandro', 'alfonso', '32123232', '1234345344', 4, 'alendro@gmail.com', 'calle45#87este'),
-(5, 'allison', 'perez', '3135678793', '121232145', 5, 'allison@gmail.com', 'calle56#65'),
-(6, 'leon', 'panche', '321232454', '1004565678', 6, 'leon@gmail.com', 'calle45#87sur'),
-(7, 'jhon', 'tovar', '3135467565', '999999999', 7, 'jhon@gmail.com', 'calle45#78'),
-(8, 'stiven', 'leon', '321235467', '1234567891', 8, 'stiven@gmail.com', 'calle45#99'),
-(9, 'camilo', 'uribe', '123432154654', '454567678', 9, 'camilo@gmail.com', 'calle65#676'),
-(10, 'luz', 'lopez', '34565789', '4356565676', 10, 'luz@gamil.com', 'calle59sur#78b-17');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `modo_uso`
---
-
-CREATE TABLE `modo_uso` (
-  `id` int(11) NOT NULL,
-  `nombre_modo` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `modo_uso`
---
-
-INSERT INTO `modo_uso` (`id`, `nombre_modo`) VALUES
-(1, 'Tomar 1 comprimido cada 4-6 horas, según necesidad, hasta un máximo de 6 comprimidos al día. No tomar más de 3 gramos de paracetamol en 24 horas. Las tomas deben espaciarse al menos 4 horas.'),
-(2, 'acetaminofeno cada 4 a 6 horas según sea necesario. No administre más de 4 dosis en 24 horas'),
-(3, 'suplemento para subir las defensas tomar 1 vez cada dia'),
-(4, 'Gotas para la resequedad (una gota por ojo) cada 8 horas.'),
-(5, 'se toma con un vaso lleno de agua cada 8 o 12 horas, según sea necesario.'),
-(6, ' diclofenaco se toman usualmente una vez al día, y en raras ocasiones se toman dos veces al día,'),
-(7, 'Tomar Losartan Y metroporol todos los dias 2 dos veces al dia '),
-(8, 'Se debe tomar antiinflamatorios y Naproxeno cada 8 horas durante 15 dias '),
-(9, 'Vitaminas para la quema de grasa y perder peso'),
-(10, 'Tomar Antiflamatorios cada 8 horas por 20 dias');
+INSERT INTO `medico` (`id`, `nombre`, `apellidos`, `telefono`, `licencia_medica`, `id_especialidad`, `correo`, `direccion`, `id_consultorio`) VALUES
+(1, 'brayan', 'parra', '111222333', '1153665363', 1, 'brayan@outlook.com', 'calle90#09', 1),
+(2, 'lina', 'lopez', '111111111', '1213121321', 2, 'lina123@gmail.com', 'calle 67#6575', 2),
+(3, 'mailin', 'serrano', '3145656451', '1902102910', 8, 'mailin123@gmail.com', 'calle65#676', 8),
+(4, 'alejandro', 'alfonso', '32123232', '1234345344', 4, 'alendro@gmail.com', 'calle45#87este', 4),
+(5, 'allison', 'perez', '3135678793', '121232145', 5, 'allison@gmail.com', 'calle56#65', 5),
+(6, 'leon', 'panche', '321232454', '1004565678', 6, 'leon@gmail.com', 'calle45#87sur', 6),
+(7, 'jhon', 'tovar', '3135467565', '999999999', 7, 'jhon@gmail.com', 'calle45#78', 7),
+(8, 'stiven', 'leon', '321235467', '1234567891', 8, 'stiven@gmail.com', 'calle45#99', 11),
+(9, 'camilo', 'uribe', '123432154654', '454567678', 9, 'camilo@gmail.com', 'calle65#676', 9),
+(10, 'luz', 'lopez', '34565789', '4356565676', 10, 'luz@gmail.com', 'calle59sur#78b-17', 10);
 
 -- --------------------------------------------------------
 
@@ -1463,10 +1625,10 @@ INSERT INTO `municipio` (`id`, `nombre`, `id_departamento`, `estado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `persona`
+-- Estructura de tabla para la tabla `paciente`
 --
 
-CREATE TABLE `persona` (
+CREATE TABLE `paciente` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `apellido` varchar(100) NOT NULL,
@@ -1485,10 +1647,10 @@ CREATE TABLE `persona` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `persona`
+-- Volcado de datos para la tabla `paciente`
 --
 
-INSERT INTO `persona` (`id`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `tipo_identificacion`, `identificacion`, `id_seguro`, `telefono`, `correo`, `direccion`, `grupo_sangineo`, `alergias`, `Tipo_de_Alergia`, `id_municipio`) VALUES
+INSERT INTO `paciente` (`id`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `tipo_identificacion`, `identificacion`, `id_seguro`, `telefono`, `correo`, `direccion`, `grupo_sangineo`, `alergias`, `Tipo_de_Alergia`, `id_municipio`) VALUES
 (1, 'brian', 'alfonso', 'O', '2013-10-09', 'TI', '1342352425', 1, '34537353', 'brian@gmail.com', 'calle90#56', 'O+', 'SI', 'AINES', 107),
 (2, 'fernanda', 'rodriguez', 'F', '2014-06-13', 'TI', '1107589326', 2, '878352521', 'Fernanda125@gmail.com', 'calle67#56sur', 'A+', 'NO', 'N/A', 107),
 (3, 'laura', 'garcia', 'F', '1998-10-16', 'CC', '878656534', 3, '9896465433', 'laura@gmail.com', 'calle90#70', 'O-', 'NO', 'N/A', 9),
@@ -1503,31 +1665,54 @@ INSERT INTO `persona` (`id`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`,
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `receta`
+-- Estructura de tabla para la tabla `prescripción medica`
 --
 
-CREATE TABLE `receta` (
+CREATE TABLE `prescripción medica` (
   `id` int(11) NOT NULL,
+  `id_historia` int(11) NOT NULL,
   `id_medicamentos` int(11) NOT NULL,
-  `can_medicamentos` varchar(100) NOT NULL,
-  `observaciones` varchar(500) NOT NULL
+  `cantidad_total` int(11) NOT NULL,
+  `presentacion` varchar(100) NOT NULL,
+  `indicaciones` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `receta`
+-- Volcado de datos para la tabla `prescripción medica`
 --
 
-INSERT INTO `receta` (`id`, `id_medicamentos`, `can_medicamentos`, `observaciones`) VALUES
-(1, 1, ' Adultos y adolescentes mayores de 15 años: Tomar 1 comprimido (500 mg de paracetamol) cada 4-6 hora', 'se debe tomar la cantidad necesaria por el tiempo estipulado y viendo su mejoras'),
-(2, 2, 'Puede administrar acetaminofeno cada 4 a 6 horas según sea necesario. No administre más de 4 dosis e', 'se debe tomar la cantidad necesaria por el tiempo estipulado y viendo su mejoras'),
-(3, 3, 'suplemento para subir las defensas tomar 1 vez cada dia', 'Tomarlo hasta terminar con el frasco'),
-(4, 4, 'Gotas para la resequedad (una gota por ojo) cada 8 horas.', 'se debe suministrar hasta terminar el en base '),
-(5, 5, ' se toma con un vaso lleno de agua cada 8 o 12 horas, según sea necesario. El naproxeno de venta lib', 'se debe tomar por 7 dias si na hay mejorias volver ala clinica '),
-(6, 6, 'La dosis recomendada para casos más leves es de 100 mg (un comprimido dos veces al día).', 'se debe tomar por 7 dias si na hay mejorias volver ala clinica '),
-(7, 7, 'Tomar Losartan Y metroporol todos los dias 2 dos veces al dia ', 'se debe todos los dias dos veces al dia sin falta'),
-(8, 8, 'Se debe tomar antiinflamatorios y Naproxeno cada 8 horas durante 15 dias ', 'se debe tomar la cantidad necesaria por el tiempo estipulado y viendo su mejoras'),
-(9, 9, 'Vitaminas para la quema de grasa y perder peso', 'tomarse una pastilla diaria OJO NO EXCEDERSE'),
-(10, 10, 'Tomar Antiflamatorios cada 8 horas por 20 dias', ' Tomar el antiflamatorio antes de comer ya que puede ser muy fuerte');
+INSERT INTO `prescripción medica` (`id`, `id_historia`, `id_medicamentos`, `cantidad_total`, `presentacion`, `indicaciones`) VALUES
+(1, 1, 2, 30, 'Tableta', 'administrar una tableta cada 6 horas x 10 Dias'),
+(2, 2, 5, 20, 'Capsula', 'Suministrar una capsula cada 8 Horas x 5 Dias'),
+(3, 3, 2, 30, 'Tabletas', 'administrar una tableta cada 6 horas x 10 Dias'),
+(4, 4, 5, 20, 'Capsula', 'Suministrar una capsula cada 8 Horas x 5 Dias'),
+(5, 5, 11, 40, 'Tabletas', 'se administrará 1 tableta por vía oral con un vaso de agua cada 24 Horas x 40 Dias '),
+(6, 6, 12, 30, 'Tabletas ', 'Suministrar 1 tableta cada 24 Horas x 30 Dias '),
+(7, 7, 13, 1, 'Jarabe 120ml', 'Se debe Suministar 4.5cc 4 veces al dia x 10 dias '),
+(8, 8, 8, 30, 'Tabletas ', 'Suministrar una table cada 12 Horas x 10 Dias'),
+(9, 9, 8, 20, 'Tabletas ', 'Suministrar una table cada 12 Horas x 5 Dias'),
+(10, 10, 5, 30, 'Tabletas ', 'Suministrar 1 tableta cada 6 horas x 10 dias ');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE `rol` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`id`, `nombre`) VALUES
+(1, 'Perfil Usuario'),
+(2, 'Perfil Medico'),
+(3, 'Perfil Auxiliar'),
+(4, 'Perfil Farmaceutico');
 
 -- --------------------------------------------------------
 
@@ -1573,16 +1758,57 @@ CREATE TABLE `servicio` (
 --
 
 INSERT INTO `servicio` (`id`, `descripcion_servicio`, `tipo_servicio`) VALUES
-(1, 'Consulta General', 'consulta ambulatoria'),
-(2, 'Rayos X', 'Consulta Ambulatoria.'),
-(3, 'Oftamologia', 'consulta ambulatoria'),
-(4, 'Odontologia', 'Consulta ambulatoria'),
-(5, 'Ortopedia', 'Consulta ambulatoria'),
-(6, 'Medicina Interna', 'Consulta ambulatoria'),
-(7, 'Nutricion y Dietetica', 'Consulta ambulatoria'),
-(8, 'Fisioterapia', 'Consulta ambulatoria'),
-(9, 'Ginecologia', 'Consulta ambulatoria'),
-(10, 'Pediatria', 'Consulta Ambulatoria');
+(1, 'Pediatria', 'Consulta Ambulatoria'),
+(2, 'Medicina interna', 'Consulta Ambulatoria'),
+(3, 'Dietetica y nutricion', 'Consulta Ambulatoria'),
+(4, 'Fisioterapeuta', 'Consulta Ambulatoria'),
+(5, 'Psicologia', 'Consulta Ambulatoria'),
+(6, 'Ortopedia y Traumatologia', 'Consulta Ambulatoria'),
+(7, 'Odontologia', 'Consulta Ambulatoria'),
+(8, 'Medicina General', 'Consulta Ambulatoria'),
+(9, 'Oftamologia', 'Consulta Ambulatoria'),
+(10, 'Ginecologia', 'Consulta Ambulatoria'),
+(11, 'Radiografia', 'Consulta Ambulatoria'),
+(12, 'Hemograma', 'Consulta Ambulatoria'),
+(13, 'Tomografia computarizada (TC)', 'Consulta Ambulatoria'),
+(14, 'Radiografía periapical ', 'Consulta Ambulatoria'),
+(15, 'Resonancia Magnetica (RMN)', 'Consulta Ambulatoria'),
+(16, 'Electrocardiograma', 'Consulta Ambulatoria'),
+(17, 'Insulina', 'Consulta Ambulatoria'),
+(18, 'Electromiografía (EMG)', 'Consulta Ambulatoria'),
+(19, 'Hemoglobina glicosilada', 'Consulta Ambulatoria'),
+(20, 'Ecografía musculoesquelética', 'Consulta Ambulatoria'),
+(21, 'Ecografía Abdominal', 'Consulta Ambulatoria'),
+(22, 'Evaluacion psicologica completa', 'Consulta Ambulatoria');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_examen`
+--
+
+CREATE TABLE `tipo_examen` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_examen`
+--
+
+INSERT INTO `tipo_examen` (`id`, `nombre`) VALUES
+(1, 'Radiografia'),
+(2, 'Hemograma'),
+(3, 'Tomografia computarizada (TC)'),
+(4, 'Radiografía periapical '),
+(5, 'Resonancia Magnetica (RMN)'),
+(6, 'Electrocardiograma'),
+(7, 'Insulina'),
+(8, 'Electromiografía (EMG)'),
+(9, 'Hemoglobina glicosilada'),
+(10, 'Ecografía musculoesquelética'),
+(11, 'Ecografía Abdominal'),
+(12, 'Evaluacion psicologica completa');
 
 -- --------------------------------------------------------
 
@@ -1594,38 +1820,103 @@ CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `login` varchar(100) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `id_persona` int(11) NOT NULL
+  `id_paciente` int(11) DEFAULT NULL,
+  `id_medico` int(11) DEFAULT NULL,
+  `id_auxiliar` int(11) DEFAULT NULL,
+  `id_farmaceutico` int(11) DEFAULT NULL,
+  `id_rol` int(11) NOT NULL,
+  `codigo_restablecimiento` varchar(6) NOT NULL,
+  `expiracion_codigo` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `ultima_solicitud` timestamp NOT NULL DEFAULT current_timestamp(),
+  `intentos_fallidos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `login`, `password`, `id_persona`) VALUES
-(1, 'brian@gmail.com', 'brian123', 1),
-(2, 'Fernanda125@gmail.com', 'Fernanda128*', 2),
-(3, 'laura@gmail.com', 'Laura741#', 3),
-(4, 'valentina@gmail.com', 'Valentina7895&', 4),
-(5, 'omar@gmail.com', 'Omar8595%', 5),
-(6, 'Oscarjimenez@Hotmail.com', 'Oscarcito45', 6),
-(7, 'mamadeAntonio@gmail.com', 'Antonito45**', 7),
-(8, 'Xiomi32427@gmail.com', 'Xiomi47', 8),
-(9, 'Cesar145@gmail.com', 'cesar134', 9),
-(10, 'Felipe@Hotmail.com', 'Felipee98', 10);
+INSERT INTO `usuario` (`id`, `login`, `password`, `id_paciente`, `id_medico`, `id_auxiliar`, `id_farmaceutico`, `id_rol`, `codigo_restablecimiento`, `expiracion_codigo`, `ultima_solicitud`, `intentos_fallidos`) VALUES
+(1, 'brian@gmail.com', 'brian123', 1, NULL, NULL, NULL, 1, '123456', '2025-01-30 20:05:55', '2024-09-26 01:15:00', 0),
+(2, 'Fernanda125@gmail.com', 'Fernanda128*', 2, NULL, NULL, NULL, 1, '234567', '2025-01-30 20:06:07', '2024-09-26 02:15:00', 0),
+(3, 'laura@gmail.com', 'Laura741#', 3, NULL, NULL, NULL, 1, '345678', '2025-01-30 20:06:19', '2024-09-26 03:20:00', 0),
+(4, 'valentina@gmail.com', 'Valentina7895&', 4, NULL, NULL, NULL, 1, '456789', '2025-01-30 20:06:37', '2024-09-26 04:10:00', 0),
+(5, 'omar@gmail.com', 'Omar8595%', 5, NULL, NULL, NULL, 1, '567890', '2025-01-30 20:07:24', '2024-09-26 05:05:00', 0),
+(6, 'Oscarjimenez@Hotmail.com', 'Oscarcito45', 6, NULL, NULL, NULL, 1, '678901', '2025-01-30 20:07:36', '2024-09-26 06:15:00', 0),
+(7, 'mamadeAntonio@gmail.com', 'Antonito45**', 7, NULL, NULL, NULL, 1, '789012', '2025-01-30 20:07:43', '2024-09-26 07:10:00', 0),
+(8, 'Xiomi32427@gmail.com', 'Xiomi47', 8, NULL, NULL, NULL, 1, '890123', '2025-01-30 20:07:51', '2024-09-26 08:20:00', 0),
+(9, 'Cesar145@gmail.com', 'cesar134', 9, NULL, NULL, NULL, 1, '901234', '2025-01-30 20:07:59', '2024-09-26 09:10:00', 0),
+(10, 'Felipe@Hotmail.com', 'Felipee98', 10, NULL, NULL, NULL, 1, '012345', '2025-01-30 20:08:06', '2024-09-26 10:15:00', 0),
+(11, 'brayan@outlook.com', 'Brayan20058*', NULL, 1, NULL, NULL, 2, '123456', '2025-01-30 20:08:16', '2024-01-24 22:00:00', 0),
+(12, 'lina123@gmail.com', 'linita4578@', NULL, 2, NULL, NULL, 2, '654321', '2025-01-30 20:08:25', '2024-01-24 23:00:00', 1),
+(13, 'mailin123@gmail.com', 'Mailincita124/', NULL, 3, NULL, NULL, 2, '789012', '2025-01-30 20:08:36', '2024-01-25 00:00:00', 0),
+(14, 'alendro@gmail.com', 'Alejandro7547*', NULL, 4, NULL, NULL, 2, '345678', '2025-01-30 20:08:46', '2024-01-25 01:00:00', 0),
+(15, 'allison@gmail.com', 'Alison00257()', NULL, 5, NULL, NULL, 2, '567890', '2025-01-30 20:08:56', '2024-01-25 02:00:00', 0),
+(16, 'leon@gmail.com', 'Leoncito129%', NULL, 6, NULL, NULL, 2, '234567', '2025-01-30 20:09:04', '2024-01-25 03:00:00', 1),
+(17, 'jhon@gmail.com', 'jhon7536{', NULL, 7, NULL, NULL, 2, '987654', '2025-01-30 20:09:19', '2024-01-25 04:00:00', 0),
+(18, 'stiven@gmail.com', 'Stiven32427*', NULL, 8, NULL, NULL, 2, '654789', '2025-01-30 20:09:30', '2024-01-25 05:00:00', 0),
+(19, 'camilo@gmail.com', 'Camilo00785', NULL, 9, NULL, NULL, 2, '321654', '2025-01-30 20:09:39', '2024-01-25 06:00:00', 0),
+(20, 'luz@gmail.com', 'Luz96325/', NULL, 10, NULL, NULL, 2, '456123', '2025-01-30 20:09:51', '2024-01-25 07:00:00', 1),
+(21, 'juan.perez@hotmail.com', 'Juancito1247*', NULL, NULL, 1, NULL, 3, '123456', '2025-01-30 20:10:03', '2024-05-02 00:30:00', 0),
+(22, 'maria.gomez@gmail.com', 'Mariagomez0175@', NULL, NULL, 2, NULL, 3, '654321', '2025-01-30 20:10:15', '2024-06-02 01:30:00', 0),
+(23, 'carlos.ramirez@gmail.com', 'Carlitos4875***', NULL, NULL, 3, NULL, 3, '789012', '2025-01-30 20:10:24', '2024-07-02 02:15:00', 1),
+(24, 'ana.lopez@hotmail.com', 'AnalopeZ32429<>', NULL, NULL, 4, NULL, 3, '345678', '2025-01-30 20:10:34', '2024-08-02 03:45:00', 0),
+(25, 'pedro.martinez@gmail.com', 'Pedro2058', NULL, NULL, 5, NULL, 3, '567890', '2025-01-30 20:10:42', '2024-09-02 04:30:00', 0),
+(26, 'laura.rodriguez@hotmail.com', 'Laurita45%', NULL, NULL, 6, NULL, 3, '234567', '2025-01-30 20:10:54', '2024-10-02 05:15:00', 0),
+(27, 'luis.fernandez@gmail.com', 'Luisfernandito1036#', NULL, NULL, 7, NULL, 3, '987654', '2025-01-30 20:11:03', '2024-11-02 06:45:00', 2),
+(28, 'sofia.torres@hotmail.com', 'SofiaTorres1078/', NULL, NULL, 8, NULL, 3, '654789', '2025-01-30 20:11:11', '2024-12-02 07:15:00', 0),
+(29, 'jorge.diaz@gmail.com', 'Jorgediaz5089++', NULL, NULL, 9, NULL, 3, '321654', '2025-01-30 20:11:22', '2024-12-16 08:30:00', 0),
+(30, 'patricia.gonzalez@gmail.com', 'Patricia5078@', NULL, NULL, 10, NULL, 3, '456123', '2025-01-30 20:11:29', '2024-12-20 09:45:00', 0),
+(31, 'jose.mendoza@gmail.com', 'Jose10009@', NULL, NULL, NULL, 1, 4, 'ABC123', '2025-01-30 20:11:40', '2024-02-15 23:30:00', 0),
+(32, 'ana.garcia@gmail.com', 'Anita8887**', NULL, NULL, NULL, 2, 4, 'XYZ789', '2025-01-30 20:11:49', '2024-02-16 00:30:00', 0),
+(33, 'luis.perez@hotmail.com', 'Luis5414#', NULL, NULL, NULL, 3, 4, 'LMN456', '2025-01-30 20:11:59', '2024-02-16 01:30:00', 1),
+(34, 'maria.rodriguez@gmail.com', 'MariaR10047$', NULL, NULL, NULL, 4, 4, 'DEF123', '2025-01-30 20:12:08', '2024-02-16 02:30:00', 0),
+(35, 'carlos.martinez@hotmail.com', 'carlos5978', NULL, NULL, NULL, 5, 4, 'GHI456', '2025-01-30 20:12:17', '2024-02-16 03:30:00', 0),
+(36, 'laura.jimenez@hotmail.com', 'Laurita3687**', NULL, NULL, NULL, 6, 4, 'JKL789', '2025-01-30 20:12:25', '2024-02-16 04:30:00', 0),
+(37, 'pedro.lopez@gmail.com', 'Pedrito20789&', NULL, NULL, NULL, 7, 4, 'MNO012', '2025-01-30 20:12:34', '2024-02-16 05:30:00', 0),
+(38, 'Bianca.torres@hotmail.com', 'Biankis117854T$', NULL, NULL, NULL, 8, 4, 'PQR345', '2025-01-30 20:12:44', '2024-02-16 06:30:00', 0),
+(39, 'jorge.diaz@gmail.com', 'Jorgito20#', NULL, NULL, NULL, 9, 4, 'STU678', '2025-01-30 20:12:53', '2024-02-16 07:30:00', 0),
+(40, 'DenisL@hotmail.com', 'DenisL1457@', NULL, NULL, NULL, 10, 4, 'VWX901', '2025-01-30 20:13:00', '2024-02-16 08:30:00', 0);
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `afiliacion`
+--
+ALTER TABLE `afiliacion`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `identificacion` (`identificacion`),
+  ADD KEY `fk_afiliacion_municipio` (`id_municipio`),
+  ADD KEY `fk_afiliacion_seguro` (`id_seguro`);
+
+--
+-- Indices de la tabla `agendamiento`
+--
+ALTER TABLE `agendamiento`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_agendamiento_persona` (`id_paciente`),
+  ADD KEY `fk_agendamiento_medico` (`id_medico`),
+  ADD KEY `fk_agendamiento_especialidad` (`id_especialidad`),
+  ADD KEY `fk_agendamiento_usuario` (`id_usuario_creador`);
+
+--
+-- Indices de la tabla `auxiliar`
+--
+ALTER TABLE `auxiliar`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `identificacion` (`identificacion`),
+  ADD UNIQUE KEY `correo` (`correo`);
+
+--
 -- Indices de la tabla `cita`
 --
 ALTER TABLE `cita`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_paciente` (`id_persona`),
-  ADD UNIQUE KEY `id_medico` (`id_medico`),
-  ADD KEY `id_` (`id_consultorio`),
-  ADD KEY `id_receta` (`id_receta`);
+  ADD UNIQUE KEY `Hora` (`Hora`),
+  ADD KEY `fk_cita_medico` (`id_medico`),
+  ADD KEY `fk_cita_especialidad` (`id_especialidad`),
+  ADD KEY `fk_cita_persona` (`id_paciente`);
 
 --
 -- Indices de la tabla `consultorio`
@@ -1644,8 +1935,9 @@ ALTER TABLE `departamento`
 --
 ALTER TABLE `detalle_examenes`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_cita` (`id_cita`),
-  ADD KEY `id_servicio` (`id_servicio`);
+  ADD KEY `fk_detalle_examenes_tipo_examen` (`id_tipo_examen`),
+  ADD KEY `fk_detalle_examenes_auxiliar` (`id_auxiliar`),
+  ADD KEY `fk_detalle_examenes_paciente` (`id_paciente`);
 
 --
 -- Indices de la tabla `especialidad`
@@ -1654,39 +1946,51 @@ ALTER TABLE `especialidad`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `estado_afiliacion`
+--
+ALTER TABLE `estado_afiliacion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_estado_afiliacion_afiliacion` (`id_afiliacion`);
+
+--
+-- Indices de la tabla `facturacion`
+--
+ALTER TABLE `facturacion`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_facturacion_servicio` (`id_servicio`),
+  ADD KEY `fk_facturacion_paciente` (`id_paciente`);
+
+--
+-- Indices de la tabla `farmaceutico`
+--
+ALTER TABLE `farmaceutico`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `correo` (`correo`),
+  ADD UNIQUE KEY `numero_licencia` (`numero_licencia`);
+
+--
 -- Indices de la tabla `historia`
 --
 ALTER TABLE `historia`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `paciente_id` (`id_persona`),
-  ADD UNIQUE KEY `doctor_id` (`id_medico`);
+  ADD KEY `fk_historia_medico` (`id_medico`),
+  ADD KEY `fk_historia_paciente` (`id_paciente`);
 
 --
--- Indices de la tabla `horarios`
+-- Indices de la tabla `inventario_medicamentos`
 --
-ALTER TABLE `horarios`
+ALTER TABLE `inventario_medicamentos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_horarios_medico` (`id_medico`);
-
---
--- Indices de la tabla `medicamentos`
---
-ALTER TABLE `medicamentos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_modo_uso` (`id_modo_uso`);
+  ADD KEY `id_modo_uso` (`Cantidad`);
 
 --
 -- Indices de la tabla `medico`
 --
 ALTER TABLE `medico`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_especialidad` (`id_especialidad`);
-
---
--- Indices de la tabla `modo_uso`
---
-ALTER TABLE `modo_uso`
-  ADD PRIMARY KEY (`id`);
+  ADD UNIQUE KEY `licencia_medica` (`licencia_medica`),
+  ADD KEY `id_especialidad` (`id_especialidad`),
+  ADD KEY `fk_medico_consultorio` (`id_consultorio`);
 
 --
 -- Indices de la tabla `municipio`
@@ -1696,20 +2000,27 @@ ALTER TABLE `municipio`
   ADD KEY `id_departamento` (`id_departamento`);
 
 --
--- Indices de la tabla `persona`
+-- Indices de la tabla `paciente`
 --
-ALTER TABLE `persona`
+ALTER TABLE `paciente`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `identificacion` (`identificacion`),
   ADD KEY `id_municipio` (`id_municipio`),
   ADD KEY `id_seguro` (`id_seguro`);
 
 --
--- Indices de la tabla `receta`
+-- Indices de la tabla `prescripción medica`
 --
-ALTER TABLE `receta`
+ALTER TABLE `prescripción medica`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_medicamentos` (`id_medicamentos`);
+  ADD KEY `id_medicamentos` (`id_medicamentos`),
+  ADD KEY `fk_prescripcion_medica_historia` (`id_historia`);
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `seguro`
@@ -1724,15 +2035,37 @@ ALTER TABLE `servicio`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `tipo_examen`
+--
+ALTER TABLE `tipo_examen`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_persona` (`id_persona`);
+  ADD KEY `id_persona` (`id_paciente`),
+  ADD KEY `fk_usuario_medico` (`id_medico`),
+  ADD KEY `fk_usuario_auxiliar` (`id_auxiliar`),
+  ADD KEY `fk_usuario_farmaceutico` (`id_farmaceutico`),
+  ADD KEY `fk_usuario_rol` (`id_rol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `afiliacion`
+--
+ALTER TABLE `afiliacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `auxiliar`
+--
+ALTER TABLE `auxiliar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `cita`
@@ -1744,7 +2077,7 @@ ALTER TABLE `cita`
 -- AUTO_INCREMENT de la tabla `consultorio`
 --
 ALTER TABLE `consultorio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -1765,33 +2098,39 @@ ALTER TABLE `especialidad`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de la tabla `estado_afiliacion`
+--
+ALTER TABLE `estado_afiliacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `facturacion`
+--
+ALTER TABLE `facturacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `farmaceutico`
+--
+ALTER TABLE `farmaceutico`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT de la tabla `historia`
 --
 ALTER TABLE `historia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `horarios`
+-- AUTO_INCREMENT de la tabla `inventario_medicamentos`
 --
-ALTER TABLE `horarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de la tabla `medicamentos`
---
-ALTER TABLE `medicamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `inventario_medicamentos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `medico`
 --
 ALTER TABLE `medico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT de la tabla `modo_uso`
---
-ALTER TABLE `modo_uso`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
@@ -1801,16 +2140,22 @@ ALTER TABLE `municipio`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1101;
 
 --
--- AUTO_INCREMENT de la tabla `persona`
+-- AUTO_INCREMENT de la tabla `paciente`
 --
-ALTER TABLE `persona`
+ALTER TABLE `paciente`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `receta`
+-- AUTO_INCREMENT de la tabla `prescripción medica`
 --
-ALTER TABLE `receta`
+ALTER TABLE `prescripción medica`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `seguro`
@@ -1822,57 +2167,81 @@ ALTER TABLE `seguro`
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_examen`
+--
+ALTER TABLE `tipo_examen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
+-- Filtros para la tabla `afiliacion`
+--
+ALTER TABLE `afiliacion`
+  ADD CONSTRAINT `fk_afiliacion_municipio` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_afiliacion_seguro` FOREIGN KEY (`id_seguro`) REFERENCES `seguro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `agendamiento`
+--
+ALTER TABLE `agendamiento`
+  ADD CONSTRAINT `fk_agendamiento_especialidad` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_agendamiento_medico` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_agendamiento_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_agendamiento_usuario` FOREIGN KEY (`id_usuario_creador`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `cita`
 --
 ALTER TABLE `cita`
-  ADD CONSTRAINT `fk_cita_consultorio` FOREIGN KEY (`id_consultorio`) REFERENCES `consultorio` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cita_doctor` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_cita_persona` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_cita_receta` FOREIGN KEY (`id_receta`) REFERENCES `receta` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cita_especialidad` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cita_medico` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_cita_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalle_examenes`
 --
 ALTER TABLE `detalle_examenes`
-  ADD CONSTRAINT `fk_detalle_examenes_servicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_examenes_cita` FOREIGN KEY (`id_cita`) REFERENCES `cita` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_detalle_examenes_auxiliar` FOREIGN KEY (`id_auxiliar`) REFERENCES `auxiliar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_detalle_examenes_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detalle_examenes_tipo_examen` FOREIGN KEY (`id_tipo_examen`) REFERENCES `tipo_examen` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `estado_afiliacion`
+--
+ALTER TABLE `estado_afiliacion`
+  ADD CONSTRAINT `fk_estado_afiliacion_afiliacion` FOREIGN KEY (`id_afiliacion`) REFERENCES `afiliacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `facturacion`
+--
+ALTER TABLE `facturacion`
+  ADD CONSTRAINT `fk_facturacion_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_facturacion_servicio` FOREIGN KEY (`id_servicio`) REFERENCES `servicio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `historia`
 --
 ALTER TABLE `historia`
-  ADD CONSTRAINT `fk_historia_medico` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_historia_persona` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `horarios`
---
-ALTER TABLE `horarios`
-  ADD CONSTRAINT `fk_horarios_medico` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `medicamentos`
---
-ALTER TABLE `medicamentos`
-  ADD CONSTRAINT `fk_medicamentos_modo_uso` FOREIGN KEY (`id_modo_uso`) REFERENCES `modo_uso` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_historia_medico` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_historia_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `medico`
 --
 ALTER TABLE `medico`
+  ADD CONSTRAINT `fk_medico_consultorio` FOREIGN KEY (`id_consultorio`) REFERENCES `consultorio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_medico_especialidad` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -1882,23 +2251,28 @@ ALTER TABLE `municipio`
   ADD CONSTRAINT `fk_municipio_departamento` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `persona`
+-- Filtros para la tabla `paciente`
 --
-ALTER TABLE `persona`
-  ADD CONSTRAINT `fk_persona_municipio` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_persona_seguro` FOREIGN KEY (`id_seguro`) REFERENCES `seguro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `paciente`
+  ADD CONSTRAINT `fk_paciente_municipio` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_paciente_seguro` FOREIGN KEY (`id_seguro`) REFERENCES `seguro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `receta`
+-- Filtros para la tabla `prescripción medica`
 --
-ALTER TABLE `receta`
-  ADD CONSTRAINT `fk_receta_medicamentos` FOREIGN KEY (`id_medicamentos`) REFERENCES `medicamentos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `prescripción medica`
+  ADD CONSTRAINT `fk_prescripcion_medica_historia` FOREIGN KEY (`id_historia`) REFERENCES `historia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_prescripcion_medica_medicamentos` FOREIGN KEY (`id_medicamentos`) REFERENCES `inventario_medicamentos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_usario_persona` FOREIGN KEY (`id_persona`) REFERENCES `persona` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_usuario_auxiliar` FOREIGN KEY (`id_auxiliar`) REFERENCES `auxiliar` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_farmaceutico` FOREIGN KEY (`id_farmaceutico`) REFERENCES `farmaceutico` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_usuario_medico` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_usuario_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_usuario_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
