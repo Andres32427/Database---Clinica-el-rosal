@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-01-2025 a las 00:02:52
+-- Tiempo de generación: 21-05-2025 a las 02:38:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `cosas por mejorar bd`
+-- Base de datos: `clinica_el_rosal (unica)`
 --
 
 -- --------------------------------------------------------
@@ -56,7 +56,10 @@ INSERT INTO `afiliacion` (`id`, `nombres`, `apellidos`, `tipo_identificacion`, `
 (7, 'Antonio', 'Sanchez', 'REGISTRO CIVIL', '1102987235', '2024-01-03', '3045987324', 'mamadeAntonio@gmail.com\r\n', 'Calle24#7e-05\r\n', 914, 'CONTRIBUTIVO', 3),
 (8, 'Xiomara', 'Sevilla', 'CC', '1103478963', '2000-04-01', '3247859214', 'Xiomi32427@gmail.com', 'Calle47#4e-2', 177, 'PARTICULAR', 7),
 (9, 'Cesar', 'Lopez', 'TI', '1104651329', '2008-07-21', '310269754', 'Cesar145@gmail.com', 'Calle26#4z-12\r\n', 24, 'SUBSIDIADO', 6),
-(10, 'Felipe', 'Gomez', 'TI', '1102395784', '2010-09-10', '3001782548', 'Felipe@Hotmail.com', 'Calle15#7s-14\r\n', 1097, 'SUBSIDIADO', 9);
+(10, 'Felipe', 'Gomez', 'TI', '1102395784', '2010-09-10', '3001782548', 'Felipe@Hotmail.com', 'Calle15#7s-14\r\n', 1097, 'SUBSIDIADO', 9),
+(14, 'Andres', 'Perez', 'CC', '1104259820', '2006-01-07', '3015202139', 'pipe4558@gmail.com', 'Calle24#87-z0', 200, 'SUBSIDIADO', 8),
+(18, 'Sandra', 'Lopez', 'TI', '11045206932', '2016-04-13', '3104559875', 'Sandra123@gmail.com', 'calle96#40-j20', 111, 'CONTRIBUTIVO', 6),
+(19, 'Andres', 'perez', 'TI', '09d453', '2014-07-20', '3001489572', 'Pipealfa11@hotmail.com', 'calle26#40-d80', 85, 'SUBSIDIADO', 2);
 
 -- --------------------------------------------------------
 
@@ -71,6 +74,7 @@ CREATE TABLE `agendamiento` (
   `id_paciente` int(11) NOT NULL,
   `id_medico` int(11) NOT NULL,
   `id_especialidad` int(11) NOT NULL,
+  `asistencia` enum('SI','NO') NOT NULL,
   `sede` varchar(100) NOT NULL,
   `estado` enum('DISPONIBLE','OCUPADO','BLOQUEADO') NOT NULL,
   `motivo` varchar(255) NOT NULL,
@@ -82,17 +86,19 @@ CREATE TABLE `agendamiento` (
 -- Volcado de datos para la tabla `agendamiento`
 --
 
-INSERT INTO `agendamiento` (`id`, `fecha`, `hora`, `id_paciente`, `id_medico`, `id_especialidad`, `sede`, `estado`, `motivo`, `id_usuario_creador`, `tipo_creador`) VALUES
-(1, '2024-06-14', '10:00:00', 1, 1, 1, 'Sede Principal', 'DISPONIBLE', 'NULL', 1, 'PACIENTE'),
-(2, '2024-06-14', '17:00:00', 2, 1, 1, 'Sede Principal', 'OCUPADO', 'Capacitacion Medica', 21, 'AUXILIAR'),
-(3, '2024-09-10', '15:30:00', 3, 3, 8, 'Sede Principal', 'DISPONIBLE', 'NULL', 3, 'PACIENTE'),
-(4, '2024-11-08', '08:50:00', 4, 7, 7, 'Sede Principal', 'DISPONIBLE', 'NULL', 27, 'AUXILIAR'),
-(5, '2024-10-24', '11:10:00', 5, 5, 5, 'Sede Principal', 'DISPONIBLE', 'NULL', 24, 'AUXILIAR'),
-(6, '2024-10-29', '18:40:00', 6, 2, 2, 'Sede Principal', 'OCUPADO', 'Reunion Interna', 25, 'AUXILIAR'),
-(7, '2024-09-19', '08:00:00', 7, 1, 1, 'Sede Principal', 'DISPONIBLE', 'NULL', 7, 'PACIENTE'),
-(8, '2024-12-23', '13:40:00', 8, 6, 6, 'Sede Principal', 'DISPONIBLE', 'NULL', 23, 'AUXILIAR'),
-(9, '2024-11-22', '13:00:00', 9, 8, 8, 'Sede Principal ', 'BLOQUEADO', 'Mantenimiento del consultorio', 28, 'AUXILIAR'),
-(10, '2024-10-16', '07:00:00', 10, 4, 4, 'Sede Principal', 'DISPONIBLE', 'NULL', 22, 'AUXILIAR');
+INSERT INTO `agendamiento` (`id`, `fecha`, `hora`, `id_paciente`, `id_medico`, `id_especialidad`, `asistencia`, `sede`, `estado`, `motivo`, `id_usuario_creador`, `tipo_creador`) VALUES
+(2, '2024-06-27', '16:30:00', 2, 1, 1, 'SI', 'Sede Principal', 'BLOQUEADO', 'Capacitacion Medica', 21, 'AUXILIAR'),
+(4, '2024-11-08', '08:50:00', 4, 7, 7, 'SI', 'Sede Principal', 'DISPONIBLE', 'NULL', 27, 'AUXILIAR'),
+(5, '2024-10-24', '11:10:00', 5, 5, 5, 'SI', 'Sede Principal', 'DISPONIBLE', 'NULL', 24, 'AUXILIAR'),
+(6, '2024-10-29', '18:40:00', 6, 2, 2, 'SI', 'Sede Principal', 'OCUPADO', 'Reunion Interna', 25, 'AUXILIAR'),
+(7, '2024-09-19', '08:00:00', 7, 1, 1, 'SI', 'Sede Principal', 'DISPONIBLE', 'NULL', 7, 'PACIENTE'),
+(8, '2024-12-23', '13:40:00', 8, 6, 6, 'SI', 'Sede Principal', 'DISPONIBLE', 'NULL', 23, 'AUXILIAR'),
+(9, '2024-11-22', '13:00:00', 9, 8, 8, 'SI', 'Sede Principal ', 'DISPONIBLE', 'Mantenimiento del consultorio', 28, 'AUXILIAR'),
+(10, '2024-10-16', '07:00:00', 10, 4, 4, 'NO', 'Sede Principal', 'DISPONIBLE', 'NULL', 22, 'AUXILIAR'),
+(11, '2025-05-31', '16:30:00', 11, 3, 8, 'NO', 'Sede Principal', 'OCUPADO', 'Consulta Medica', 26, 'AUXILIAR'),
+(12, '2025-05-30', '17:20:00', 22, 3, 8, 'SI', 'Sede Principal', 'OCUPADO', 'Cita medica', 30, 'AUXILIAR'),
+(17, '2025-05-30', '13:00:00', 12, 3, 8, 'NO', 'Sede Principal', 'OCUPADO', 'Consulta Medica', 21, 'AUXILIAR'),
+(18, '2025-05-30', '14:36:00', 23, 3, 8, 'NO', 'Sede Principal', 'BLOQUEADO', 'Consulta Medica', 21, 'AUXILIAR');
 
 -- --------------------------------------------------------
 
@@ -147,16 +153,19 @@ CREATE TABLE `cita` (
 --
 
 INSERT INTO `cita` (`id`, `id_paciente`, `id_medico`, `fecha`, `Hora`, `Estado`, `id_especialidad`) VALUES
-(1, 1, 1, '2024-06-14', '10:00:00', 'AGENDAR', 1),
 (2, 2, 1, '2024-06-14', '17:00:00', 'REPROGRAMAR', 1),
-(3, 3, 3, '2024-09-10', '15:30:00', 'AGENDAR', 8),
-(4, 4, 7, '2024-11-08', '08:50:00', 'AGENDAR', 7),
-(5, 5, 5, '2024-10-24', '11:10:00', 'AGENDAR', 5),
+(3, 3, 3, '2024-09-20', '06:30:00', 'REPROGRAMAR', 8),
+(4, 4, 7, '2024-11-08', '08:50:00', 'CANCELAR', 7),
 (6, 6, 2, '2024-10-29', '18:40:00', 'REPROGRAMAR', 2),
 (7, 7, 1, '2024-09-19', '08:00:00', 'AGENDAR', 1),
 (8, 8, 6, '2024-12-23', '13:40:00', 'AGENDAR', 6),
-(9, 9, 8, '2024-11-22', '13:00:00', 'CANCELAR', 8),
-(10, 10, 4, '2024-10-16', '07:00:00', 'AGENDAR', 4);
+(9, 9, 8, '2024-11-22', '14:00:00', 'AGENDAR', 8),
+(10, 10, 4, '2024-10-16', '07:00:00', 'AGENDAR', 4),
+(19, 11, 3, '2025-05-01', '14:30:00', 'REPROGRAMAR', 8),
+(21, 11, 3, '2025-04-30', '10:00:00', 'REPROGRAMAR', 8),
+(33, 22, 5, '2025-04-28', '14:00:00', 'AGENDAR', 5),
+(34, 22, 6, '2025-04-28', '16:30:00', 'CANCELAR', 6),
+(35, 22, 8, '2025-04-30', '09:00:00', 'REPROGRAMAR', 8);
 
 -- --------------------------------------------------------
 
@@ -189,7 +198,8 @@ INSERT INTO `consultorio` (`id`, `nombre`, `ubicacion`, `capacidad`, `telefono`,
 (8, 'Consultorio 2', 'segundo piso ', 10, '3144343565', 'Medicina General', 'activo'),
 (9, 'consultorio 8', 'tercer piso', 10, '3135678797', 'oftalmología', 'activo'),
 (10, 'consultorio 7 ', 'tercer piso', 7, '3224545267', 'ginecología', 'activo'),
-(11, 'Consultorio 11', 'Primer piso', 50, '3104780395', 'Medicina General', 'activo');
+(11, 'Consultorio 11', 'Primer piso', 50, '3104780395', 'Medicina General', 'activo'),
+(12, 'Consultorio NO.12', 'Primer Piso', 30, '3202458595', 'Cardiologia', 'activo');
 
 -- --------------------------------------------------------
 
@@ -251,7 +261,7 @@ CREATE TABLE `detalle_examenes` (
   `id` int(11) NOT NULL,
   `id_tipo_examen` int(11) NOT NULL,
   `fecha_examen` date NOT NULL,
-  `archivo_examen` varchar(255) NOT NULL,
+  `archivo_examen` longtext NOT NULL,
   `id_paciente` int(11) NOT NULL,
   `id_auxiliar` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -262,16 +272,15 @@ CREATE TABLE `detalle_examenes` (
 --
 
 INSERT INTO `detalle_examenes` (`id`, `id_tipo_examen`, `fecha_examen`, `archivo_examen`, `id_paciente`, `id_auxiliar`, `created_at`) VALUES
-(1, 2, '2024-06-17', 'archivos/No-disponible.pdf', 1, 1, '2025-01-27 16:10:56'),
 (2, 11, '2024-06-26', 'archivos/No-disponible.pdf\r\n', 2, 2, '2025-01-27 16:28:45'),
-(3, 11, '2024-09-17', 'archivos/No-disponible.pdf\r\n', 3, 3, '2025-01-27 16:41:25'),
 (4, 4, '2024-11-15', 'archivos/No-disponible.pdf', 4, 4, '2025-01-27 16:51:38'),
 (5, 12, '2024-10-31', 'archivos/No-disponible.pdf\r\n', 5, 5, '2025-01-27 17:04:02'),
 (6, 6, '2024-10-31', 'archivos/No-disponible.pdf\r\n', 6, 6, '2025-01-27 17:18:18'),
 (7, 2, '2024-09-23', 'archivos/No-disponible.pdf\r\n', 7, 7, '2025-01-27 21:57:10'),
 (8, 5, '2024-12-27', 'archivos/No-disponible.pdf\r\n', 8, 8, '2025-01-27 22:18:36'),
 (9, 3, '2024-11-29', 'archivos/No-disponible.pdf\r\n', 9, 9, '2025-01-27 22:28:39'),
-(10, 10, '2024-10-23', 'archivos/No-disponible.pdf\r\n', 10, 10, '2025-01-27 22:41:28');
+(10, 10, '2024-10-23', 'archivos/No-disponible.pdf\r\n', 10, 10, '2025-01-27 22:41:28'),
+(23, 6, '2025-05-30', 'archivos/No-disponible.pdf', 12, 10, '2025-05-31 00:24:00');
 
 -- --------------------------------------------------------
 
@@ -298,7 +307,8 @@ INSERT INTO `especialidad` (`id`, `nombre_especialidad`) VALUES
 (7, 'Odontologia'),
 (8, 'Medicina General'),
 (9, 'Oftamologia'),
-(10, 'Ginecologia');
+(10, 'Ginecologia'),
+(11, 'Cardiologia');
 
 -- --------------------------------------------------------
 
@@ -329,7 +339,10 @@ INSERT INTO `estado_afiliacion` (`id`, `id_afiliacion`, `estado`, `fecha_activac
 (7, 7, 'ACTIVO', '2024-06-25', '2024-12-28', 'CERTIFICA QUE:\nEl (La) Señor(a) Antonio Sanchez identificado(a) con REGISTRO CIVIL 1102987235 se encuentra afiliado(a) a la CLÍNICA en condición de CONTRIBUTIVO.\n25/06/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 28 días del mes Diciembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nACTIVO\nA\nCLINICA EL ROSAL'),
 (8, 8, 'PENDIENTE', '2024-02-28', '2024-09-19', 'CERTIFICA QUE:\nEl (La) Señor(a) Xiomara Sevilla identificado(a) con CC 1103478963 se encuentra afiliado(a) a la CLÍNICA en condición de PARTICULAR.\n28/02/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 19 días del mes Septiembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nPENDIENTE\nP\nCLINICA EL ROSAL\n'),
 (9, 9, 'ACTIVO', '2024-04-18', '2024-10-15', 'CERTIFICA QUE:\nEl (La) Señor(a) Cesar Lopez identificado(a) con TI 1104651329 se encuentra afiliado(a) a la CLÍNICA en condición de SUBSIDIADO.\n18/04/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 15 días del mes Octubre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nACTIVO\nA\nCLINICA EL ROSAL\n'),
-(10, 10, 'INACTIVO', '2024-03-30', '2024-12-14', 'CERTIFICA QUE:\r\nEl (La) Señor(a) Felipe Gomez identificado(a) con TI 1102395784 se encuentra afiliado(a) a la CLÍNICA en condición de SUBSIDIADO.\r\n30/03/2024\r\n\r\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 14 días del mes Diciembre del 2024.\r\n\r\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\r\n\r\nCordialmente,\r\nCLÍNICA EL ROSAL\r\n\r\nINACTIVO\r\nI\r\nCLINICA EL ROSAL');
+(10, 10, 'INACTIVO', '2024-03-30', '2024-12-14', 'CERTIFICA QUE:\nEl (La) Señor(a) Felipe Gomez identificado(a) con TI 1102395784 se encuentra afiliado(a) a la CLÍNICA en condición de SUBSIDIADO.\n30/03/2024\n\nLa presente certificación se expide a solicitud del(los) interesado(s) en QUIEN 14 días del mes Diciembre del 2024.\n\nEsta certificación tiene validez de un mes con respecto a la fecha de generación.\n\nCordialmente,\nCLÍNICA EL ROSAL\n\nINACTIVO\nI\nCLINICA EL ROSAL'),
+(14, 14, 'ACTIVO', '2025-04-23', '2025-05-23', 'CERTIFICA QUE:\nEl (La) Señor(a) Andres Perez identificado(a) con CC 1104259820 se encuentra afiliado(a) a la CLÍNICA EL ROSAL en condición de SUBSIDIADO.Esta certificación tiene validez de un mes con respecto a la fecha de generación: 2025-04-23.'),
+(18, 18, 'ACTIVO', '2025-04-23', '2025-05-23', 'CERTIFICA QUE:\nEl (La) Señor(a) Sandra Lopez identificado(a) con TI 11045206932 se encuentra afiliado(a) a la CLÍNICA EL ROSAL en condición de CONTRIBUTIVO.Esta certificación tiene validez de un mes con respecto a la fecha de generación: 2025-04-23.'),
+(19, 19, 'ACTIVO', '2025-05-20', '2025-06-19', 'CERTIFICA QUE:\nEl (La) Señor(a) Andres perez identificado(a) con TI 09d453 se encuentra afiliado(a) a la CLÍNICA EL ROSAL en condición de SUBSIDIADO.Esta certificación tiene validez de un mes con respecto a la fecha de generación: 2025-05-20.');
 
 -- --------------------------------------------------------
 
@@ -350,16 +363,13 @@ CREATE TABLE `facturacion` (
 --
 
 INSERT INTO `facturacion` (`id`, `id_paciente`, `id_servicio`, `monto`, `fecha`) VALUES
-(1, 1, 12, 30000, '2024-06-17'),
-(2, 2, 21, 60000, '2024-06-26'),
 (3, 3, 8, 100000, '2024-09-10'),
 (4, 4, 14, 40000, '2024-11-15'),
-(5, 5, 5, 80000, '2024-10-24'),
 (6, 6, 16, 200000, '2024-10-31'),
-(7, 7, 12, 20000, '2024-09-23'),
-(8, 8, 6, 70000, '2024-12-23'),
 (9, 9, 13, 400000, '2024-11-29'),
-(10, 10, 20, 50000, '2024-10-23');
+(10, 10, 20, 50000, '2024-10-23'),
+(11, 11, 16, 200000, '2025-02-25'),
+(23, 12, 7, 30000, '2025-05-16');
 
 -- --------------------------------------------------------
 
@@ -405,7 +415,6 @@ CREATE TABLE `historia` (
   `id_medico` int(11) NOT NULL,
   `fecha_consulta` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `motivo_consulta` text NOT NULL,
-  `historial_clinico` text NOT NULL,
   `diagnostico` text NOT NULL,
   `tratamiento` text NOT NULL,
   `alergias` text NOT NULL,
@@ -418,17 +427,18 @@ CREATE TABLE `historia` (
 -- Volcado de datos para la tabla `historia`
 --
 
-INSERT INTO `historia` (`id`, `id_paciente`, `id_medico`, `fecha_consulta`, `motivo_consulta`, `historial_clinico`, `diagnostico`, `tratamiento`, `alergias`, `antecedentes`, `signos_vitales`, `examenes_solicitado`) VALUES
-(1, 1, 1, '2024-06-14 15:00:00', 'Fiebre persistente y tos durante los últimos 5 días.', 'N/A', 'Infección respiratoria aguda (IRA).', 'Se enviará medicación para la mejora del paciente y una observación y seguimiento en caso de empeoramiento', 'AINES', 'El Padre Sufre de Asma Y la Madre sana, sin antecedentes relevantes.', 'Frecuencia cardíaca: 100 lpm\r\nFrecuencia respiratoria: 24 rpm\r\nTemperatura: 38.5 °C\r\nPresión arterial: 90/60 mmHg', 'Se le Solicita un Hemograma con el fin de revisar como se encuentra el paciente'),
-(2, 2, 1, '2024-06-14 22:00:00', 'La paciente presenta episodios de dolor abdominal en la región periumbilical, que se han intensificado en las últimas semanas.', 'Sin antecedentes de enfermedades crónicas. Vacunas al día.', 'Síndrome de intestino irritable (posible)', 'Se hara envio de tratamiento medico y se le pide a la madre una reduccion de alimentos irritantes (grazas, azucares y alimentos picantes)\r\n\r\nY un control en 1 mes para evaluar la evolucion.', 'N/A', 'Personales: Sin antecedentes quirúrgicos. No alergias conocidas.\r\nFamiliares: Madre con gastritis, padre sano.', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se le enviara una Ecografía abdominal Para descartar anomalías estructurales.'),
-(3, 3, 3, '2024-09-10 20:30:00', 'La paciente se presenta a consulta por dolor abdominal persistente en la región inferior derecha, que ha aumentado en intensidad en los últimos tres días.', 'Antecedentes personales:\r\n\r\nEnfermedades crónicas: [Reflujo Gastrico]\r\nAlergias: [N/A]\r\nMedicamentos actuales: [Lansoprazol 30mg]\r\n\r\nAntecedentes familiares:\r\nEnfermedades relevantes en familiares: [Ninguna]', 'Posible apendicitis aguda (a confirmar con estudios).', 'Se le envía Reposo, muchas Hidratación y también se le dará Analgésicos para calmar el dolor mientras salen los resultados', 'N/A', 'Enfermedades crónicas: [Reflujo Gástrico]\r\n\r\nAntecedentes familiares:\r\nEnfermedades relevantes en familiares: [Ninguna]', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se le Enviara un examen para una Ecografía Abdominal con el fin de identificar como esta.'),
-(4, 4, 7, '2024-11-08 13:50:00', 'Paciente refiere dolor dental en el molar superior derecho, especialmente al masticar y al consumir alimentos fríos.', 'N/A', 'Se diagnostica Caries dental en el molar superior derecho.', 'Se realizará una radiografía periapical también una restauración de la caries con material compuesto.\r\n\r\nY unas instrucciones sobre higiene bucal y seguimiento.', 'ALERGICA A LOS ACAROS', 'Sin antecedentes médicos relevantes.', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se realizara una Radiografía periapical del molar afectado.'),
-(5, 5, 5, '2024-10-24 16:10:00', 'El paciente se presenta por síntomas de ansiedad y depresión, que han interferido con su vida diaria y relaciones interpersonales. Refirió sentirse abrumado por el estrés laboral y problemas familiares.', 'Sin antecedentes psiquiátricos significativos. No ha recibido tratamiento psicológico anteriormente.', 'Se le Diagnostico \r\nF41.1 -> (Trastorno de ansiedad generalizada)\r\nF32.0 -> (Episodio depresivo leve)', 'Se le Recomienda: \r\n* Terapia cognitivo-conductual (TCC) semanal.\r\n* Ejercicios de relajación y mindfulness.', 'N/A', 'Familiares: Madre con antecedentes de depresión.\r\nPersonales: Estrés laboral reciente, separación reciente de pareja.', 'Frecuencia cardíaca: 75 bpm\r\nPresión arterial: 120/80 mmHg\r\nTemperatura: 36.5 °C\r\nFrecuencia respiratoria: 16 rpm', 'Se le Solicita un examen de Evaluación psicológica completa.'),
-(6, 6, 2, '2025-01-27 17:21:07', 'Paciente masculino de 29 años presenta dolor torácico intermitente y dificultad para respirar.', 'Antecedentes Médicos:\r\n* Hipertensión arterial controlada con medicamentos todavía.\r\n\r\nAntecedentes Quirúrgicos:\r\n* Hernia Umbilical hace 10 años.\r\n\r\n', 'Posible angina de pecho debido a la presentación de dolor torácico y factores de riesgo cardiovascular.', 'Se le enviara tratamiento médico y también se le pide haga cambios en el estilo de vida (dieta y ejercicio) y \r\nControl regular de glucosa y presión arterial.', 'N/A', 'Antecedentes Quirúrgicos:\r\n* Hernia Umbilical hace 10 años.\r\n\r\nAntecedentes Médicos:\r\n* Hipertensión arterial con medicamentos todavia.\r\n', 'Presión Arterial: 130/85 mmHg\r\nFrecuencia Cardíaca: 78 lpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.8 °C\r\nSaturación de Oxígeno: 95%', 'Se le enviara un Electrocardiograma (ECG) para descartar cualquier otro problema'),
-(7, 7, 1, '2024-09-19 13:00:00', 'Consulta por fiebre persistente los padres reportan que el bebé ha tenido fiebre de hasta 39°C durante los últimos tres días, acompañado de irritabilidad y disminución del apetito.', 'Edad: 1 año\r\nPeso: 9 kg\r\nTalla: 70 cm\r\nDesarrollo: Desarrollo psicomotor adecuado para la edad.\r\nVacunas: Al día según el esquema nacional de vacunación.\r\nAlergias: No se reportan alergias conocidas.', 'Infección viral (posible infección respiratoria superior).', 'Se recomienda tenerlo bastante hidratado monitorear la fiebre y si llega a ser necesario baños tibios y por ende también se recetará unos medicamentos por si llega a ser necesario', 'N/A', 'Antecedentes familiares: Sin antecedentes relevantes de enfermedades hereditarias.\r\n\r\nAntecedentes personales: Nacido a término, sin complicaciones en el parto. Sin hospitalizaciones previas.', 'Frecuencia cardiaca: 120 latidos por minuto\r\nFrecuencia respiratoria: 30 respiraciones por minuto\r\nTemperatura: 38.5°C\r\n', 'Se le solicita un hemograma para evaluar algun signo de infeccion.'),
-(8, 8, 6, '2024-12-23 18:40:00', 'Dolor en la rodilla derecha que ha persistido durante las últimas 3 semanas, especialmente al caminar y subir escaleras.', 'N/A', 'Lesión de ligamento cruzado anterior (LCA) o meniscopatía.', 'Se recomienda reposo y también un antiinflamatorio que se le enviara para que se le alivie un poco el dolor ', 'RINITIS ALERGICA', 'Familiares: Padre con antecedentes de artritis.\r\n\r\nPersonales: Actividad física moderada, corre ocasionalmente.', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 72 latidos por minuto\r\nTemperatura: 36.8 °C\r\nFrecuencia Respiratoria: 16 respiraciones por minuto\r\n', 'Se le solicitara una Resonancia magnética (RM) de rodilla'),
-(9, 9, 8, '2024-11-22 18:00:00', 'Dolor de cabeza intenso que ha persistido por más de 2 días.', 'Antecedentes Médicos:\r\nSin antecedentes de migrañas o cefaleas previas.\r\nNo alergias conocidas.\r\nSin enfermedades crónicas relevantes.', 'Cefalea Tensional o Migraña (se requiere evaluación adicional para determinar el tipo).', 'se recomienda evitar desencadenantes como estrés, falta de sueño y ciertos alimentos además se le suministrara un medicamento que le podrá servir para aliviar un poco ese dolor de cabeza intenso', 'N/A', 'Personales:\r\nEstilo de vida de manera sedentaria, dieta irregular y Estrés laboral reciente.\r\n\r\nSociales:\r\nNo fumador, consumo ocasional de alcohol.', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 75 bpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.8 °C', 'se le envia una Tomografía computarizada (TC) para revisar y ver si todo esta bien '),
-(10, 10, 4, '2024-10-16 12:00:00', 'Paciente se presenta con dolor persistente en la articulación de la rodilla derecha, que ha aumentado en intensidad en las últimas semanas.', 'N/A', 'Sospecha de tendinitis en el tendón rotuliano derecho.', 'Se le enviara un tratamiento, pero antes que nada debe tener presente que debe tener \r\n1) un Reposo relativo de la extremidad afectada.\r\n\r\n2) Aplicación de hielo en la zona afectada.\r\n\r\n3) se le enviara una Prescripción de antiinflamatorios', 'N/A', 'Sin Antecedentes relevantes', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 72 bpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.5 °C', 'Se le solicita una Ecografía musculoesquelética de la rodilla derecha para poder dar un díctame.');
+INSERT INTO `historia` (`id`, `id_paciente`, `id_medico`, `fecha_consulta`, `motivo_consulta`, `diagnostico`, `tratamiento`, `alergias`, `antecedentes`, `signos_vitales`, `examenes_solicitado`) VALUES
+(2, 2, 1, '2024-06-14 22:00:00', 'La paciente presenta episodios de dolor abdominal en la región periumbilical, que se han intensificado en las últimas semanas.', 'Síndrome de intestino irritable (posible)', 'Se hara envio de tratamiento medico y se le pide a la madre una reduccion de alimentos irritantes (grazas, azucares y alimentos picantes)\r\n\r\nY un control en 1 mes para evaluar la evolucion.', 'N/A', 'Personales: Sin antecedentes quirúrgicos. No alergias conocidas.\r\nFamiliares: Madre con gastritis, padre sano.', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se le enviara una Ecografía abdominal Para descartar anomalías estructurales.'),
+(3, 3, 3, '2024-09-10 20:30:00', 'La paciente se presenta a consulta por dolor abdominal persistente en la región inferior derecha, que ha aumentado en intensidad en los últimos tres días.', 'Posible apendicitis aguda (a confirmar con estudios).', 'Se le envía Reposo, muchas Hidratación y también se le dará Analgésicos para calmar el dolor mientras salen los resultados', 'N/A', 'Enfermedades crónicas: [Reflujo Gástrico]\r\n\r\nAntecedentes familiares:\r\nEnfermedades relevantes en familiares: [Ninguna]', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se le Enviara un examen para una Ecografía Abdominal con el fin de identificar como esta.'),
+(4, 4, 7, '2024-11-08 13:50:00', 'Paciente refiere dolor dental en el molar superior derecho, especialmente al masticar y al consumir alimentos fríos.', 'Se diagnostica Caries dental en el molar superior derecho.', 'Se realizará una radiografía periapical también una restauración de la caries con material compuesto.\r\n\r\nY unas instrucciones sobre higiene bucal y seguimiento.', 'ALERGICA A LOS ACAROS', 'Sin antecedentes médicos relevantes.', 'Frecuencia cardíaca: 85 latidos por minuto\r\nFrecuencia respiratoria: 20 respiraciones por minuto\r\nTemperatura: 36.8 °C\r\nPresión arterial: 100/60 mmHg', 'Se realizara una Radiografía periapical del molar afectado.'),
+(6, 6, 2, '2025-01-27 17:21:07', 'Paciente masculino de 29 años presenta dolor torácico intermitente y dificultad para respirar.', 'Posible angina de pecho debido a la presentación de dolor torácico y factores de riesgo cardiovascular.', 'Se le enviara tratamiento médico y también se le pide haga cambios en el estilo de vida (dieta y ejercicio) y \r\nControl regular de glucosa y presión arterial.', 'N/A', 'Antecedentes Quirúrgicos:\r\n* Hernia Umbilical hace 10 años.\r\n\r\nAntecedentes Médicos:\r\n* Hipertensión arterial con medicamentos todavia.\r\n', 'Presión Arterial: 130/85 mmHg\r\nFrecuencia Cardíaca: 78 lpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.8 °C\r\nSaturación de Oxígeno: 95%', 'Se le enviara un Electrocardiograma (ECG) para descartar cualquier otro problema'),
+(7, 7, 1, '2024-09-19 13:00:00', 'Consulta por fiebre persistente los padres reportan que el bebé ha tenido fiebre de hasta 39°C durante los últimos tres días, acompañado de irritabilidad y disminución del apetito.', 'Infección viral (posible infección respiratoria superior).', 'Se recomienda tenerlo bastante hidratado monitorear la fiebre y si llega a ser necesario baños tibios y por ende también se recetará unos medicamentos por si llega a ser necesario', 'N/A', 'Antecedentes familiares: Sin antecedentes relevantes de enfermedades hereditarias.\r\n\r\nAntecedentes personales: Nacido a término, sin complicaciones en el parto. Sin hospitalizaciones previas.', 'Frecuencia cardiaca: 120 latidos por minuto\r\nFrecuencia respiratoria: 30 respiraciones por minuto\r\nTemperatura: 38.5°C\r\n', 'Se le solicita un hemograma para evaluar algun signo de infeccion.'),
+(8, 8, 6, '2024-12-23 18:40:00', 'Dolor en la rodilla derecha que ha persistido durante las últimas 3 semanas, especialmente al caminar y subir escaleras.', 'Lesión de ligamento cruzado anterior (LCA) o meniscopatía.', 'Se recomienda reposo y también un antiinflamatorio que se le enviara para que se le alivie un poco el dolor ', 'RINITIS ALERGICA', 'Familiares: Padre con antecedentes de artritis.\r\n\r\nPersonales: Actividad física moderada, corre ocasionalmente.', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 72 latidos por minuto\r\nTemperatura: 36.8 °C\r\nFrecuencia Respiratoria: 16 respiraciones por minuto\r\n', 'Se le solicitara una Resonancia magnética (RM) de rodilla'),
+(9, 9, 8, '2024-11-22 18:00:00', 'Dolor de cabeza intenso que ha persistido por más de 2 días.', 'Cefalea Tensional o Migraña (se requiere evaluación adicional para determinar el tipo).', 'se recomienda evitar desencadenantes como estrés, falta de sueño y ciertos alimentos además se le suministrara un medicamento que le podrá servir para aliviar un poco ese dolor de cabeza intenso', 'N/A', 'Personales:\r\nEstilo de vida de manera sedentaria, dieta irregular y Estrés laboral reciente.\r\n\r\nSociales:\r\nNo fumador, consumo ocasional de alcohol.', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 75 bpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.8 °C', 'se le envia una Tomografía computarizada (TC) para revisar y ver si todo esta bien '),
+(10, 10, 4, '2024-10-16 12:00:00', 'Paciente se presenta con dolor persistente en la articulación de la rodilla derecha, que ha aumentado en intensidad en las últimas semanas.', 'Sospecha de tendinitis en el tendón rotuliano derecho.', 'Se le enviara un tratamiento, pero antes que nada debe tener presente que debe tener \r\n1) un Reposo relativo de la extremidad afectada.\r\n\r\n2) Aplicación de hielo en la zona afectada.\r\n\r\n3) se le enviara una Prescripción de antiinflamatorios', 'N/A', 'Sin Antecedentes relevantes', 'Presión Arterial: 120/80 mmHg\r\nFrecuencia Cardíaca: 72 bpm\r\nFrecuencia Respiratoria: 16 rpm\r\nTemperatura: 36.5 °C', 'Se le solicita una Ecografía musculoesquelética de la rodilla derecha para poder dar un díctame.'),
+(11, 11, 3, '2025-05-05 19:58:31', 'Paciente Ingresa Con Dolor en el pecho y dificultad para respirar.', 'Se Sospecha de enfermedad coronaria.', 'Se recomienda reposo, dieta baja en grasas y solicitar electrocardiograma para evaluación cardíaca.', 'N/A', 'Antecedentes Quirurgicos: Cirugia de Hernia Umbilical, Cirugia de Apendice ; Antecedentes Personales: Reflujo Gastrico', 'Frecuencia cardíaca: 80 latidos por minuto; Frecuencia respiratoria: 20 respiraciones por minuto;\nPresión arterial: 140/90 mmHg\nPulso: 98 lpm\nTemperatura: 36.7 °C', 'Se le enviara un Examen de Electrocardiograma con el fin de prevenir cualquier problema mas adelante.'),
+(26, 22, 3, '2025-05-05 20:01:38', 'Paciente viene con problemas de rinitis alergica ', 'cornetes inflamado y desviacion del tabique nasal', ' Se recomienda evitar acaros ', 'Aines', 'Cirugía de hernia umbilical ', 'Frecuencia cardíaca: 90 latidos por minuto; \nFrecuencia respiratoria: 20 respiraciones por minuto;\nPresión arterial: 120/90 mmHg\nPulso: 85 lpm\nTemperatura: 36.5 °C', 'Se envia un Examen de analisis de sangre para diagnosticar bien a respecto de la rinitis alergica'),
+(30, 11, 3, '2025-05-21 00:32:36', 'sscscscsc', 'cscscscs', 'scscscsc', 'cscscscs', 'cscscsc', 'scscscsc', 'cscscscs');
 
 -- --------------------------------------------------------
 
@@ -501,7 +511,8 @@ INSERT INTO `medico` (`id`, `nombre`, `apellidos`, `telefono`, `licencia_medica`
 (7, 'jhon', 'tovar', '3135467565', '999999999', 7, 'jhon@gmail.com', 'calle45#78', 7),
 (8, 'stiven', 'leon', '321235467', '1234567891', 8, 'stiven@gmail.com', 'calle45#99', 11),
 (9, 'camilo', 'uribe', '123432154654', '454567678', 9, 'camilo@gmail.com', 'calle65#676', 9),
-(10, 'luz', 'lopez', '34565789', '4356565676', 10, 'luz@gmail.com', 'calle59sur#78b-17', 10);
+(10, 'luz', 'lopez', '34565789', '4356565676', 10, 'luz@gmail.com', 'calle59sur#78b-17', 10),
+(11, 'Juan Camilo', 'Rios', '3202458595', 'M12569520SQ', 11, 'JuanCamilo@hotmail.com', 'Calle46#8e-50m', 12);
 
 -- --------------------------------------------------------
 
@@ -1651,8 +1662,7 @@ CREATE TABLE `paciente` (
 --
 
 INSERT INTO `paciente` (`id`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`, `tipo_identificacion`, `identificacion`, `id_seguro`, `telefono`, `correo`, `direccion`, `grupo_sangineo`, `alergias`, `Tipo_de_Alergia`, `id_municipio`) VALUES
-(1, 'brian', 'alfonso', 'O', '2013-10-09', 'TI', '1342352425', 1, '34537353', 'brian@gmail.com', 'calle90#56', 'O+', 'SI', 'AINES', 107),
-(2, 'fernanda', 'rodriguez', 'F', '2014-06-13', 'TI', '1107589326', 2, '878352521', 'Fernanda125@gmail.com', 'calle67#56sur', 'A+', 'NO', 'N/A', 107),
+(2, 'Jimena', 'rodriguez', 'F', '2014-06-13', 'TI', '1107589326', 1, '3001785948', 'Fernanda125@gmail.com', 'calle67#56sur', 'A+', 'NO', 'N/A', 107),
 (3, 'laura', 'garcia', 'F', '1998-10-16', 'CC', '878656534', 3, '9896465433', 'laura@gmail.com', 'calle90#70', 'O-', 'NO', 'N/A', 9),
 (4, 'valentina', 'orduz', 'F', '2016-10-03', 'TI', '5436353736', 4, '787534222', 'valentina@gmail.com', 'calle67#80', 'A+', 'SI', 'ALERGICA A LOS ACAROS', 107),
 (5, 'omar', 'montes', 'M', '2016-10-18', 'PASAPORTE', '563572623', 1, '9837325242', 'omar@gmail.com', 'calle90#90', 'O+', 'NO', 'N/A', 9),
@@ -1660,15 +1670,21 @@ INSERT INTO `paciente` (`id`, `nombre`, `apellido`, `genero`, `fecha_nacimiento`
 (7, 'Antonio', 'Sanchez', 'O', '2024-01-03', 'REGISTRO CIVIL', '1102987235', 3, '3045987324', 'mamadeAntonio@gmail.com', 'Calle24#7e-05', 'O-', 'NO', 'N/A', 914),
 (8, 'Xiomara', 'Sevilla', 'F', '2000-04-01', 'CC', '1103478963', 7, '3247859214', 'Xiomi32427@gmail.com', 'Calle47#4e-2', 'A-', 'SI', 'RINITIS ALERGICAS', 177),
 (9, 'Cesar', 'Lopez', 'O', '2008-07-21', 'TI', '1104651329', 6, '310269754', 'Cesar145@gmail.com', 'Calle26#4z-12', 'O+', 'NO', 'N/A', 24),
-(10, 'Felipe', 'Gomez', 'M', '2010-09-10', 'TI', '1102395784', 9, '3001782548', 'Felipe@Hotmail.com', 'Calle15#7s-14', 'A-', 'NO', 'N/A', 1097);
+(10, 'Felipe', 'Gomez', 'M', '2010-09-10', 'TI', '1102395784', 9, '3001782548', 'Felipe@Hotmail.com', 'Calle15#7s-14', 'A-', 'NO', 'N/A', 1097),
+(11, 'Andres', 'Perez', 'M', '2006-01-07', 'CC', '1104259820', 8, '3015202139', 'pipe4558@gmail.com', 'Calle24#87-z0', 'O-', 'NO', 'N/A', 200),
+(12, 'Eduardo Jose', 'Perez Avila', 'M', '2009-06-24', 'TI', '1005665884', 10, '3001275635', 'eduardo32427@hotmail.com', 'Calle26#7e-87', 'O+', 'SI', 'AINES', 914),
+(22, 'Sandra', 'Lopez', 'F', '2016-04-13', 'TI', '11045206932', 2, '3104559875', 'Sandra123@gmail.com', 'calle96#40-j20', 'O+', 'NO', 'N/A', 111),
+(23, 'Stiven Andres', 'Lopez Medina', 'M', '2006-03-12', 'CC', '1105884113', 3, '3002479561', 'Stiven123@Hotmail.com', 'Calle28#40-7d', 'A+', 'NO', 'N/A', 144),
+(24, 'Edgar', 'Mendez', 'M', '2015-08-20', 'TI', '1104259681', 4, '3502698217', 'edgarmendez2015@gmail.com', 'calle16#10-z70', 'O+', 'NO', 'N/A', 115),
+(25, 'Andres', 'Perez', 'M', '2014-07-20', 'TI', '1104257398', 2, '3001489572', 'Pipealfa11@hotmail.com', 'calle26#40-d80', 'O+', 'NO', 'N/A', 85);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `prescripción medica`
+-- Estructura de tabla para la tabla `prescripción_medica`
 --
 
-CREATE TABLE `prescripción medica` (
+CREATE TABLE `prescripción_medica` (
   `id` int(11) NOT NULL,
   `id_historia` int(11) NOT NULL,
   `id_medicamentos` int(11) NOT NULL,
@@ -1678,20 +1694,22 @@ CREATE TABLE `prescripción medica` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `prescripción medica`
+-- Volcado de datos para la tabla `prescripción_medica`
 --
 
-INSERT INTO `prescripción medica` (`id`, `id_historia`, `id_medicamentos`, `cantidad_total`, `presentacion`, `indicaciones`) VALUES
-(1, 1, 2, 30, 'Tableta', 'administrar una tableta cada 6 horas x 10 Dias'),
+INSERT INTO `prescripción_medica` (`id`, `id_historia`, `id_medicamentos`, `cantidad_total`, `presentacion`, `indicaciones`) VALUES
 (2, 2, 5, 20, 'Capsula', 'Suministrar una capsula cada 8 Horas x 5 Dias'),
 (3, 3, 2, 30, 'Tabletas', 'administrar una tableta cada 6 horas x 10 Dias'),
 (4, 4, 5, 20, 'Capsula', 'Suministrar una capsula cada 8 Horas x 5 Dias'),
-(5, 5, 11, 40, 'Tabletas', 'se administrará 1 tableta por vía oral con un vaso de agua cada 24 Horas x 40 Dias '),
 (6, 6, 12, 30, 'Tabletas ', 'Suministrar 1 tableta cada 24 Horas x 30 Dias '),
 (7, 7, 13, 1, 'Jarabe 120ml', 'Se debe Suministar 4.5cc 4 veces al dia x 10 dias '),
 (8, 8, 8, 30, 'Tabletas ', 'Suministrar una table cada 12 Horas x 10 Dias'),
 (9, 9, 8, 20, 'Tabletas ', 'Suministrar una table cada 12 Horas x 5 Dias'),
-(10, 10, 5, 30, 'Tabletas ', 'Suministrar 1 tableta cada 6 horas x 10 dias ');
+(10, 10, 5, 30, 'Tabletas ', 'Suministrar 1 tableta cada 6 horas x 10 dias '),
+(13, 11, 5, 30, 'Tabletas', 'Suministrar una tableta cada 12 Horas x 5 Dias'),
+(14, 11, 3, 30, 'Tabletas', 'Suministrar una tableta cada 6 horas x 10 Dias'),
+(19, 26, 2, 30, 'Tabletas', 'administrar una tableta cada 6 horas x 10 Dias'),
+(23, 30, 2, 10, 'Tabletas', 'sssssss');
 
 -- --------------------------------------------------------
 
@@ -1779,7 +1797,8 @@ INSERT INTO `servicio` (`id`, `descripcion_servicio`, `tipo_servicio`) VALUES
 (19, 'Hemoglobina glicosilada', 'Consulta Ambulatoria'),
 (20, 'Ecografía musculoesquelética', 'Consulta Ambulatoria'),
 (21, 'Ecografía Abdominal', 'Consulta Ambulatoria'),
-(22, 'Evaluacion psicologica completa', 'Consulta Ambulatoria');
+(22, 'Evaluacion psicologica completa', 'Consulta Ambulatoria'),
+(23, 'Cardiologia ', 'Consulta Ambulatoria');
 
 -- --------------------------------------------------------
 
@@ -1836,7 +1855,6 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `login`, `password`, `id_paciente`, `id_medico`, `id_auxiliar`, `id_farmaceutico`, `id_rol`, `codigo_restablecimiento`, `expiracion_codigo`, `ultima_solicitud`, `intentos_fallidos`) VALUES
-(1, 'brian@gmail.com', 'brian123', 1, NULL, NULL, NULL, 1, '123456', '2025-01-30 20:05:55', '2024-09-26 01:15:00', 0),
 (2, 'Fernanda125@gmail.com', 'Fernanda128*', 2, NULL, NULL, NULL, 1, '234567', '2025-01-30 20:06:07', '2024-09-26 02:15:00', 0),
 (3, 'laura@gmail.com', 'Laura741#', 3, NULL, NULL, NULL, 1, '345678', '2025-01-30 20:06:19', '2024-09-26 03:20:00', 0),
 (4, 'valentina@gmail.com', 'Valentina7895&', 4, NULL, NULL, NULL, 1, '456789', '2025-01-30 20:06:37', '2024-09-26 04:10:00', 0),
@@ -1875,7 +1893,11 @@ INSERT INTO `usuario` (`id`, `login`, `password`, `id_paciente`, `id_medico`, `i
 (37, 'pedro.lopez@gmail.com', 'Pedrito20789&', NULL, NULL, NULL, 7, 4, 'MNO012', '2025-01-30 20:12:34', '2024-02-16 05:30:00', 0),
 (38, 'Bianca.torres@hotmail.com', 'Biankis117854T$', NULL, NULL, NULL, 8, 4, 'PQR345', '2025-01-30 20:12:44', '2024-02-16 06:30:00', 0),
 (39, 'jorge.diaz@gmail.com', 'Jorgito20#', NULL, NULL, NULL, 9, 4, 'STU678', '2025-01-30 20:12:53', '2024-02-16 07:30:00', 0),
-(40, 'DenisL@hotmail.com', 'DenisL1457@', NULL, NULL, NULL, 10, 4, 'VWX901', '2025-01-30 20:13:00', '2024-02-16 08:30:00', 0);
+(40, 'DenisL@hotmail.com', 'DenisL1457@', NULL, NULL, NULL, 10, 4, 'VWX901', '2025-01-30 20:13:00', '2024-02-16 08:30:00', 0),
+(41, 'pipe4558@gmail.com', 'Andres2006@', 11, NULL, NULL, NULL, 1, '09a553', '2025-04-11 00:13:10', '2025-03-26 19:15:00', 0),
+(104, 'Sandra123@gmail.com', 'Sandra123*', 22, NULL, NULL, NULL, 1, 'd79308', '2025-05-21 05:40:10', '2025-04-24 04:18:53', 0),
+(105, 'edgarmendez2015@gmail.com', '', 24, NULL, NULL, NULL, 1, '123456', '2025-05-16 22:00:00', '2025-05-16 22:00:00', 0),
+(106, 'Pipealfa11@hotmail.com', 'Andres15', 25, NULL, NULL, NULL, 1, '09d453', '2025-05-21 05:40:52', '2025-05-21 05:24:35', 0);
 
 --
 -- Índices para tablas volcadas
@@ -1887,8 +1909,8 @@ INSERT INTO `usuario` (`id`, `login`, `password`, `id_paciente`, `id_medico`, `i
 ALTER TABLE `afiliacion`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `identificacion` (`identificacion`),
-  ADD KEY `fk_afiliacion_municipio` (`id_municipio`),
-  ADD KEY `fk_afiliacion_seguro` (`id_seguro`);
+  ADD KEY `id_seguro` (`id_seguro`),
+  ADD KEY `id_municipio` (`id_municipio`);
 
 --
 -- Indices de la tabla `agendamiento`
@@ -1913,7 +1935,6 @@ ALTER TABLE `auxiliar`
 --
 ALTER TABLE `cita`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `Hora` (`Hora`),
   ADD KEY `fk_cita_medico` (`id_medico`),
   ADD KEY `fk_cita_especialidad` (`id_especialidad`),
   ADD KEY `fk_cita_persona` (`id_paciente`);
@@ -2009,9 +2030,9 @@ ALTER TABLE `paciente`
   ADD KEY `id_seguro` (`id_seguro`);
 
 --
--- Indices de la tabla `prescripción medica`
+-- Indices de la tabla `prescripción_medica`
 --
-ALTER TABLE `prescripción medica`
+ALTER TABLE `prescripción_medica`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_medicamentos` (`id_medicamentos`),
   ADD KEY `fk_prescripcion_medica_historia` (`id_historia`);
@@ -2059,7 +2080,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `afiliacion`
 --
 ALTER TABLE `afiliacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT de la tabla `agendamiento`
+--
+ALTER TABLE `agendamiento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `auxiliar`
@@ -2071,13 +2098,13 @@ ALTER TABLE `auxiliar`
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `consultorio`
 --
 ALTER TABLE `consultorio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -2089,25 +2116,25 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `detalle_examenes`
 --
 ALTER TABLE `detalle_examenes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `especialidad`
 --
 ALTER TABLE `especialidad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `estado_afiliacion`
 --
 ALTER TABLE `estado_afiliacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `facturacion`
 --
 ALTER TABLE `facturacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `farmaceutico`
@@ -2119,7 +2146,7 @@ ALTER TABLE `farmaceutico`
 -- AUTO_INCREMENT de la tabla `historia`
 --
 ALTER TABLE `historia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario_medicamentos`
@@ -2131,7 +2158,7 @@ ALTER TABLE `inventario_medicamentos`
 -- AUTO_INCREMENT de la tabla `medico`
 --
 ALTER TABLE `medico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `municipio`
@@ -2143,13 +2170,13 @@ ALTER TABLE `municipio`
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT de la tabla `prescripción medica`
+-- AUTO_INCREMENT de la tabla `prescripción_medica`
 --
-ALTER TABLE `prescripción medica`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `prescripción_medica`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -2167,7 +2194,7 @@ ALTER TABLE `seguro`
 -- AUTO_INCREMENT de la tabla `servicio`
 --
 ALTER TABLE `servicio`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_examen`
@@ -2179,7 +2206,7 @@ ALTER TABLE `tipo_examen`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- Restricciones para tablas volcadas
@@ -2199,7 +2226,7 @@ ALTER TABLE `agendamiento`
   ADD CONSTRAINT `fk_agendamiento_especialidad` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidad` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_agendamiento_medico` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_agendamiento_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_agendamiento_usuario` FOREIGN KEY (`id_usuario_creador`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_agendamiento_usuario` FOREIGN KEY (`id_usuario_creador`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `cita`
@@ -2258,9 +2285,9 @@ ALTER TABLE `paciente`
   ADD CONSTRAINT `fk_paciente_seguro` FOREIGN KEY (`id_seguro`) REFERENCES `seguro` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `prescripción medica`
+-- Filtros para la tabla `prescripción_medica`
 --
-ALTER TABLE `prescripción medica`
+ALTER TABLE `prescripción_medica`
   ADD CONSTRAINT `fk_prescripcion_medica_historia` FOREIGN KEY (`id_historia`) REFERENCES `historia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_prescripcion_medica_medicamentos` FOREIGN KEY (`id_medicamentos`) REFERENCES `inventario_medicamentos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
